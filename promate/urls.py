@@ -19,7 +19,7 @@ from app import views as appViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', appViews.home),
-    path('captura/', appViews.capturarDatos),
-    path('materia/', appViews.materia),
+    path('', appViews.home, name='home'),
+    path('captura/', appViews.capturarDatos, name='captura'),
+    path('materia/', appViews.materia, name='materia'),
 ]
