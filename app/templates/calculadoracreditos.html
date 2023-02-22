@@ -16,45 +16,36 @@
         <div class="container text-center">
             <form>
                 <div class="mb-2">
-                    <h1>Calculadora promedio semestral </h1>
-                    <h1 id="answer"></h1>
+                    <h1>Calculadora promedio semestre 1 </h1>
+                    <div class="col s11">
+                        <label for="numero_semestres" class="form-label">Nota materia 1</label>
+                        <input type="number" class="input-field col s6" id="notam1" min="0" max="5" step="0.01" required>
+                        <label for="numero_semestres" class="form-label">Creditos</label>
+                        <input type="number" class="input-field col s6" id="credm1" min="1" max="100" required>
+
+                    </div>
+                    <div class="mb-2">
+                        <label for="numero_semestres" class="form-label">Nota materia 2</label>
+                        <input type="number" class="input-field col s6" id="notam2" min="0" max="5" step="0.01" required>
+                        <label for="numero_semestres" class="form-label">Creditos</label>
+                        <input type="number" class="input-field col s4" id="credm2" min="1" max="100" required>
+                    </div>
                     
-                    Nota 1<input type="text" id="num1">
-                    <br>
-                    <br>
-                    Nota 2<input type="text" id="num2">
-                    <br>
-                    <br>
-                    Nota 3<input type="text" id="num3">
-                    <br>
-                    <br>
-                    Nota 4<input type="text" id="num4">
-                    <br>
-                    <br>
-                    Nota 5<input type="text" id="num5">
-                    <br>
-                    <br>
-                    <button onclick="sum()">Calculate</button>
-                    
+                    <button type="submit" class="btn btn-info" onclick="calcularPromSemestre()">Calcular</button>
+                    <h1 id="respuesta"></h1>
                     <script>
-                    
-                    function calculate()
-                    {
-                        var field1=document.getElementById("num1").value;
-                        var field2=document.getElementById("num2").value;
-                        var field3=document.getElementById("num3").value;
-                        var field4=document.getElementById("num4").value;
-                        var field5=document.getElementById("num5").value;
-                    
-                        var result=(parseFloat(field1)+parseFloat(field2)+parseFloat(field3)+parseFloat(field4)+parseFloat(field5))/5;
-                        
-                        if(!isNaN(result))
-                        {
-                            document.getElementById("answer").innerHTML="The answer is "+result;
-                        }
-                    
-                    }
+                        function calcularPromSemestre(){
+                            var campo1 = document.getElementById("notam1").value;
+                            var campo2 = document.getElementById("notam2").value;
+                            var creditos1 = document.getElementById("credm1").value;
+                            var creditos2 = document.getElementById("credm2").value;
+                            var creditostotal = creditos1+creditos2;
+                            var resultado = ((parseFloat(campo1)*creditos1)+(parseFloat(campo2)*creditos2))/creditostotal;
+                            
+                            document.getElementById("respuesta").innerHTML = "Tu promedio del semestre es " + resultado;
+                            }
                     </script>
+                    <button class="btn btn-info" onclick="añadirCampo()"> Añadir campo</button>
                     
                 </div>
 
