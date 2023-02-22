@@ -22,4 +22,7 @@ urlpatterns = [
     path('', appViews.home, name='home'),
     path('captura/', appViews.capturarDatos, name='captura'),
     path('materia/', appViews.materia, name='materia'),
+    path('calculadora/', appViews.calculadora, name='calculadora'),
+    path('calculadora2/', appViews.calculadora2, name='calculadora2')
+    
 ]

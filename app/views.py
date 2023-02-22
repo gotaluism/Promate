@@ -14,3 +14,8 @@ def materia(request):
 def capturarDatos(request):
     return render(request, 'captura.html')
 
+def calculadora(request):
+    return render(request, 'calculadora.html')
+def calculadora2(request):
+    return render(request, 'calculadoracreditos.html')
+
