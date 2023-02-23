@@ -32,10 +32,14 @@
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
                         <input type="number" class="input-field col s4" id="per2" min="1" max="100" required>
                     </div>
-                    
+                    <script>
+
+                    </script>
                     <button type="submit" class="btn btn-info" onclick="calcularPromedio()">Calcular</button>
                     <h1 id="respuesta"></h1>
+                    <button type="button" class="btn btn-info" id="añadirCampo" onclick="añadirCampo()"> Añadir campo</button>
                     <script>
+                        
                         function calcularPromedio(){
                             var campo1 = document.getElementById("nota1").value;
                             var campo2 = document.getElementById("nota2").value;
@@ -44,9 +48,11 @@
                             var resultado = (parseFloat(campo1)*(porcentaje1/100))+(parseFloat(campo2)*(porcentaje2/100));
                             
                             document.getElementById("respuesta").innerHTML = "Tu nota es " + resultado;
+                            event.preventDefault();
                             }
+                            
+                            function añadirCampo(){}
                     </script>
-                    <button class="btn btn-info" onclick="añadirCampo()"> Añadir campo</button>
                 </div>
             </form>
         </div>

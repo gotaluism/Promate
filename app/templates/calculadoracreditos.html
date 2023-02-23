@@ -43,6 +43,7 @@
                             var resultado = ((parseFloat(campo1)*creditos1)+(parseFloat(campo2)*creditos2))/creditostotal;
                             
                             document.getElementById("respuesta").innerHTML = "Tu promedio del semestre es " + resultado;
+                            event.preventDefault();
                             }
                     </script>
                     <button class="btn btn-info" onclick="añadirCampo()"> Añadir campo</button>
