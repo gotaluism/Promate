@@ -1,28 +1,19 @@
-"""promate URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+
 from app import views as appViews
+from django.contrib.auth.views import LoginView
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', appViews.home, name='home'),
-    path('captura/', appViews.capturarDatos, name='captura'),
+    path('login/captura/', appViews.capturarDatos, name='captura'),
     path('materia/', appViews.materia, name='materia'),
     path('calculadora/', appViews.calculadora, name='calculadora'),
-    path('calculadora2/', appViews.calculadora2, name='calculadora2')
-    
+    path('calculadora2/', appViews.calculadora2, name='calculadora2'),
+    path('prueba/', appViews.prueba, name='prueba'),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('registro/', appViews.register, name='register'),
 ]

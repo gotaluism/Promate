@@ -1,0 +1,25 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Iniciar sesión | Promate</title>
+        <link href="{% static 'css/registro.css'%}" rel="stylesheet"> 
+    </head>
+    <body>
+
+        <div class="login-box">
+            
+            <h1>Inicia sesión</h1>
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter Password" name="password">
+                <div class="boton">
+                    <button type="submit" id="submit" href="login">Log In</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
