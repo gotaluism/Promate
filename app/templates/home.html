@@ -20,7 +20,12 @@
         <div class="container text-center">
             <h1>Bienvenido a PROMATE</h1>
             <h2></h2>
+            {% if user.is_authenticated %}
+            
+            {% else %}
                 <a href="registro" class="btn_get_started">Iniciar</a>
+            {% endif %}
+                
         </div>
 
     </section>

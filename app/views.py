@@ -5,6 +5,7 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
 
 # Create your views here.
 
@@ -34,7 +35,8 @@ def register(request):
             form.save()
             username = form.cleaned_data['username']
             messages.success(request, f'Usuario {username} creado')
-            return redirect('/')
+            return redirect('/login')
+            
     else:
         form = UserRegisterForm()
     context = {'form': form}
@@ -43,3 +45,7 @@ def register(request):
 
 def login(request):
     return render(request, 'login.html')
+
+def logoutaccount(request):
+    logout(request)
+    return redirect('home')
