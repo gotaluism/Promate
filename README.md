@@ -5,8 +5,9 @@ Promate es un software que le facilitara a vida al estudiante para calcular el p
 pip install django
 
 ## Comandos necesarios para correr el programa
-PD: Previamente debes estar ubicado en la carpeta de promate 
 python manage.py runserver
+PD: Previamente debes estar ubicado en la carpeta de promate 
+  
 
 
 
