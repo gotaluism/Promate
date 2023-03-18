@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Estudiante(models.Model):
     idEstudiante = models.CharField(primary_key=True,max_length=15)
     nombre = models.CharField(max_length=50)
+    promedioAcumulado = models.IntegerField()
 
     
 class Materia(models.Model):
@@ -14,4 +15,11 @@ class Materia(models.Model):
     nombreProfesor=models.CharField(max_length=50)
     cantCreditos=models.IntegerField()
     user =models.ForeignKey(User,on_delete=models.CASCADE)
+
+class Carrera(models.Model):
+    idCarrera = models.IntegerField(primary_key=True)
+    nombreCarrera = models.CharField(max_length=50)
+    numSemestresTotales = models.IntegerField()
+    numTotalCreditos = models.IntegerField()
+
 

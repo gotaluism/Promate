@@ -5,45 +5,44 @@
         <div class="container text-center">
             <form>
                 <div class="mb-2">
-                    <h1>Calculadora promedio semestre 1 </h1>
+                    <h1>Calculadora promedio acumulado </h1>
                     <div class="col s11">
-                        <label for="numero_semestres" class="form-label">Nota materia 1</label>
-                        <input type="number" class="input-field col s6" id="notam1" min="0" max="5" step="0.01" required>
+                        <label for="numero_semestres" class="form-label">Nota semestre 1</label>
+                        <input type="number" class="input-field col s6" id="notas1" min="0" max="5" step="0.01" required>
+                        
                         <label for="numero_semestres" class="form-label">Creditos</label>
-                        <input type="number" class="input-field col s6" id="credm1" min="1" max="100" required>
+                        <input type="number" class="input-field col s6" id="creds1" min="1" max="100" required>
                         <div id="notas1help" class="form-text">Numero de 1 a 5</div>
 
                     </div>
                     <div class="mb-2">
-                        <label for="numero_semestres" class="form-label">Nota materia 2</label>
-                        <input type="number" class="input-field col s6" id="notam2" min="0" max="5" step="0.01" required>
+                        <label for="numero_semestres" class="form-label">Nota semestre 2</label>
+                        <input type="number" class="input-field col s6" id="notas2" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Creditos</label>
-                        <input type="number" class="input-field col s4" id="credm2" min="1" max="100" required>
+                        <input type="number" class="input-field col s4" id="creds2" min="1" max="100" required>
                         <div id="notas1help" class="form-text">Numero de 1 a 5</div>
                     </div>
                     
-                    <button type="submit" class="btn btn-info" onclick="calcularPromSemestre()">Calcular</button>
+                    <button type="submit" class="btn btn-info" onclick="calcularPromAcumulado()">Calcular</button>
                     <h1 id="respuesta"></h1>
                     <h1 id="alerta"></h1>
                     <script>
-                        function calcularPromSemestre(){
-                            var campo1 = document.getElementById("notam1").value;
-                            var campo2 = document.getElementById("notam2").value;
-                            var creditos1 = document.getElementById("credm1").value;
-                            var creditos2 = document.getElementById("credm2").value;
+                        function calcularPromAcumulado(){
+                            var campo1 = document.getElementById("notas1").value;
+                            var campo2 = document.getElementById("notas2").value;
+                            var creditos1 = document.getElementById("creds1").value;
+                            var creditos2 = document.getElementById("creds2").value;
                             var creditostotal = parseInt(creditos1)+parseInt(creditos2);
                             var resultado = ((parseInt(campo1)*parseInt(creditos1)+parseInt(campo2)*parseInt(creditos2))/parseInt(creditostotal));
                             var resultadoFixed = resultado.toFixed(2);
-                            document.getElementById("respuesta").innerHTML = "Tu promedio del semestre es " + resultadoFixed;
-                            event.preventDefault();
+                            
+                            document.getElementById("respuesta").innerHTML = "Tu promedio acumulado es " + resultadoFixed;
                             if(resultado<2.9){
-                                document.getElementById("alerta").innerHTML = "Ten cuidado con el semestre, lo vas perdiendo" ;
-                                event.preventDefault();
+                                document.getElementById("alerta").innerHTML = "Ten cuidado con los otros semestres, los vas perdiendo" ;
                             }else if(resultado >=3 && resultado<3.5){
                                 document.getElementById("alerta").innerHTML = "No te confíes. No vas perdiendo pero llevas el promedio muy bajito " ;
-
                             }
-                            
+                            event.preventDefault();
                             }
                     </script>
                     <button class="btn btn-info" onclick="añadirCampo()"> Añadir campo</button>
@@ -58,4 +57,3 @@
     <script type="text/javascript" src="static/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {%endblock content%}
-

@@ -19,7 +19,7 @@ def materia(request):
     return render(request, 'materias.html')
 
 def capturarDatos(request):
-    
+
     return render(request, 'captura.html')
 
 def calculadora(request, user_id):            ############################################
@@ -29,6 +29,11 @@ def calculadora(request, user_id):            ##################################
 
 def calculadora2(request):
     return render(request, 'calculadoracreditos.html')
+
+
+def calculadora3(request):
+    return render(request, 'calculadoraAcumulado.html')
+
 
 def prueba(request):
     return render(request, 'prueba.html')

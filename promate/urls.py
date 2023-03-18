@@ -13,6 +13,7 @@ urlpatterns = [
     path('materia/', appViews.materia, name='materia'),
     path('<int:user_id>/calculadora/', appViews.calculadora, name='calculadora'),
     path('calculadora2/', appViews.calculadora2, name='calculadora2'),
+    path('calculadora3/', appViews.calculadora3, name='calculadora3'),
     path('prueba/', appViews.prueba, name='prueba'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('registro/', appViews.register, name='register'),

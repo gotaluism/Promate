@@ -14,6 +14,7 @@
                         <input type="number" class="input-field col s6" id="nota1" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
                         <input type="number" class="input-field col s6" id="per1" min="1" max="100" required>
+                        <div id="notas1help" class="form-text">Numero de 1 a 5</div>
 
                     </div>
                     <div class="mb-2">
@@ -21,12 +22,14 @@
                         <input type="number" class="input-field col s6" id="nota2" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
                         <input type="number" class="input-field col s4" id="per2" min="1" max="100" required>
+                        <div id="notas1help" class="form-text">Numero de 1 a 5</div>
                     </div>
                     <script>
 
                     </script>
                     <button type="submit" class="btn btn-info" onclick="calcularPromedio()">Calcular</button>
                     <h1 id="respuesta"></h1>
+                    <h1 id="alerta"></h1>
                     <button type="button" class="btn btn-info" id="añadirCampo" onclick="añadirCampo()"> Añadir campo</button>
 
                     {% if user.is_authenticated %}
@@ -80,6 +83,12 @@
                             
                             document.getElementById("respuesta").innerHTML = "Tu nota es " + resultado;
                             event.preventDefault();
+                            if(resultado<2.9){
+                                document.getElementById("alerta").innerHTML = "Ten cuidado con el semestre, lo vas perdiendo" ;
+                                event.preventDefault();
+                            }else if(resultado >=3 && resultado<3.5){
+                                document.getElementById("alerta").innerHTML = "No te confíes. No vas perdiendo pero llevas el promedio muy bajito " ;
+                            }
                             }
                             
                             function añadirCampo(){}

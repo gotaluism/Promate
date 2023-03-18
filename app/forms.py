@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Materia
-
+from .models import Carrera
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label= 'Correo')
@@ -41,3 +41,29 @@ class MateriaForm(ModelForm):
             'semestre': forms.NumberInput(attrs={'class': 'form-control'}),
             'cantCreditos': forms.NumberInput(attrs={'class': 'form-control'})
         }
+        
+        
+class registrarCarrera(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args,**kwargs)
+        self.fields['idCarrera'].widget.attrs.update({'class': 'form-control', 'input_type': 'number'})
+        self.fields['nombreCarrera'].widget.attrs.update({'class': 'form-control'})
+        self.fields['numSemestresTotales'].widget.attrs.update({'class': 'form-control', 'input_type': 'number'})
+        self.fields['numTotalCreditos'].widget.attrs.update({'class': 'form-control', 'input_type': 'number'})
+    
+    class Meta:
+        model = Carrera
+        fields = ['idCarrera', 'nombreCarrera', 'numSemestresTotales', 'numTotalCreditos']
+        labels = {
+            'idCarrera': 'Id Carrera',
+            'nombreCarrera': 'Nombre de la carrera',
+            'numSemestresTotales': 'Semestres',
+            'numTotalCreditos': 'Numero total de creditos'
+        }
+        widgets = {
+            'idCarrera':  forms.TextInput(attrs={'class': 'form-control'}),
+            'nombreCarrera': forms.TextInput(attrs={'class': 'form-control'}),
+            'numSemestresTotales': forms.TextInput(attrs={'class': 'form-control'}),
+            'numTotalCreditos': forms.TextInput(attrs={'class': 'form-control'})
+        }
+    
