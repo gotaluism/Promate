@@ -1,8 +1,7 @@
 
 {% extends 'base.html'%}
     {% block content%}
-    {% comment %} <section id="hero" class="d-flex align-items-center"> {% endcomment %}
-    <section class="d-flex align-items-center">
+    <section id="hero" class="d-flex align-items-center">
         <div class="container text-center">
             <form>
                 <div class="mb-2">
@@ -32,45 +31,7 @@
                     <h1 id="alerta"></h1>
                     <button type="button" class="btn btn-info" id="añadirCampo" onclick="añadirCampo()"> Añadir campo</button>
 
-                    {% if user.is_authenticated %}
-                    <div>
-                        <br> <a href="{% url 'crearmateria' user.id %}"class="btn btn-primary">Agregar Materia</a></div>
-                        {% endif %}
                     
-                    <hr>
-                    <h3>Materias</h3>
-                    <ul class="list-group">
-                        {% for materia in materias %}
-                        {% if user.is_authenticated and user == materia.user %}
-                        <li class="list-group-item pb-3 pt-3">
-                            {% comment %} <h5 class="card-title"> <a href="{% url '' %}"> {{ materia.nombreMateria }} </a> </h5> {% endcomment %}
-                            <h5 class="card-title"><a href="{% url 'materia' %}">{{ materia.nombreMateria }}</a></h5>
-                            <p class="card-text">Profesor: {{ materia.nombreProfesor }}</p>
-                            <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
-                            <a class="btn btn-primary me-2" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>
-                            <a class="btn btn-danger" href="{% url 'eliminarmateria' user.id materia.id %}">Eliminar</a>
-
-                        </li>
-                        
-                        {% else %}
-                        <h1>Acceso denegado</h1>
-                        
-                        
-                        {% comment %} <li class="list-group-item pb-3 pt-3">
-                            <h5 class="card-title">
-                                Materia: {{ materia.nombreMateria }}
-                            </h5>
-                            
-                            <p class="card-text">{{ review.text }}</p>
-                            
-                                <a class="btn btn-primary me-2" href="#">Update</a>
-                                <a class="btn btn-danger" href="#">Delete</a> {% endcomment %}
-
-                            {% endif %}
-                            
-
-                            {% endfor %}
-                        </ul>
 
                     <script>
                         

@@ -1,42 +1,47 @@
-<head> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--Fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/css/base.css">
-
-</head>
-
-
-<body>
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
     {% block content %}
-    <section id="hero" class="d-flex align-items-center">
-        <h1>Hola</h1>
-        <div class="container text-center">
-            <form>
-                <div class="mb-2">
-                    <div class="form-group row">
-                        
-                            <label for="nombre_carrera" class="form-label">Ingresa el nombre de tu carrera</label>
-                            <input type="text" class="form-control input-sm" id="nombre_carrera" aria-describedby="carreraHelp">
-                            <div id="carreraHelp" class="form-text">Ej: Ingenieria de sistemas</div>
+    
+    {% if user.is_authenticated %}
+                    <div>
+                        <br> <center><a href="{% url 'crearmateria' user.id %}"class="btn btn-primary">Agregar Materia</a></div></center>   
+                        {% endif %}
                     
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="numero_semestres" class="form-label">Numero de semestres totales</label>
-                    <input type="number" class="form-control" id="numero_semestres" aria-describedby="semestresHelp">
-                    <div id="semestresHelp" class="form-text">Ej: 9</div>
-                </div>
-                
+                    <hr>
+                    <center><h3>Materias</h3></center>
+                    <ul class="list-group">
+                        {% for materia in materias %}
+                        {% if user.is_authenticated and user == materia.user %}
+                        <li class="list-group-item pb-3 pt-3">
+                            {% comment %} <h5 class="card-title"> <a href="{% url '' %}"> {{ materia.nombreMateria }} </a> </h5> {% endcomment %}
+                            <h5 class="card-title"><a href="">{{ materia.nombreMateria }}</a></h5>
+                            <p class="card-text">Profesor: {{ materia.nombreProfesor }}</p>
+                            <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
+                            <a class="btn btn-primary me-2" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>
+                            <a class="btn btn-danger" href="{% url 'eliminarmateria' user.id materia.id %}">Eliminar</a>
 
-                <button type="submit" class="btn_btn-primary">Siguiente</button>
-            </form>
-        </div>
-    </section>
+                        </li>
+                        
+                        {% else %}
+                        <h1>Acceso denegado</h1>
+                        
+                        
+                        {% comment %} <li class="list-group-item pb-3 pt-3">
+                            <h5 class="card-title">
+                                Materia: {{ materia.nombreMateria }}
+                            </h5>
+                            
+                            <p class="card-text">{{ review.text }}</p>
+                            
+                                <a class="btn btn-primary me-2" href="#">Update</a>
+                                <a class="btn btn-danger" href="#">Delete</a> {% endcomment %}
+
+                            {% endif %}
+                            
+
+                            {% endfor %}
+                        </ul>
+
     <script type="text/javascript" src="static/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     {% endblock content %}
-</body>
+

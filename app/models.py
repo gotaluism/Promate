@@ -17,7 +17,6 @@ class Materia(models.Model):
     user =models.ForeignKey(User,on_delete=models.CASCADE)
 
 class Carrera(models.Model):
-    idCarrera = models.IntegerField(primary_key=True)
     nombreCarrera = models.CharField(max_length=50)
     numSemestresTotales = models.IntegerField()
     numTotalCreditos = models.IntegerField()

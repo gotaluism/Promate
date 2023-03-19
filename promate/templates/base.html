@@ -42,10 +42,10 @@
     id="navbarNavAltMarkup">
     <div class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'calculadora' user.id %}">Calculadora para materias </a>
+        <a class="nav-link" href="{% url 'calculadora' %}">Calculadora para materias </a>
         <a class="nav-link" href="{% url 'calculadora2'%}">Calculadora semestral </a>
         <a class="nav-link" href="{% url 'captura'%}">Perfil</a>
-        <a class="nav-link" href="{% url 'captura'%}">Materias</a>
+        <a class="nav-link" href="{% url 'materia' user.id %}">Materias</a>
         <a class="nav-link" href="{% url 'logoutaccount' %}">Logout ({{ user.username }})</a>
 
         {% else %}
