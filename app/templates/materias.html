@@ -13,7 +13,7 @@
                         {% if user.is_authenticated and user == materia.user %}
                         <li class="list-group-item pb-3 pt-3">
                             {% comment %} <h5 class="card-title"> <a href="{% url '' %}"> {{ materia.nombreMateria }} </a> </h5> {% endcomment %}
-                            <h5 class="card-title"><a href="">{{ materia.nombreMateria }}</a></h5>
+                            <h5 class="card-title"><a href="{% url 'nota' user.id materia.id  %}">{{ materia.nombreMateria }}</a></h5>
                             <p class="card-text">Profesor: {{ materia.nombreProfesor }}</p>
                             <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
                             <a class="btn btn-primary me-2" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>

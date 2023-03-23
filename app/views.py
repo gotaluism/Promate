@@ -8,19 +8,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 
 from .forms import MateriaForm
-from .forms import registrarCarrera
+from .forms import registrarCarrera, NotaForm
+from django.urls import reverse
 
 # Create your views here.
 
 def home(request):
     return render(request, 'home.html')
-
-
-def materia(request, user_id):
-    user = get_object_or_404(User,pk=user_id)
-    materias=Materia.objects.filter(user = user)           #########################################
-    return render(request, 'materias.html', {'materias':materias})
-    
 
 def capturarDatos(request):
     # user = get_object_or_404(User,pk=user_id)
@@ -75,6 +69,11 @@ def logoutaccount(request):
     logout(request)
     return redirect('home')
 
+def materia(request, user_id):
+    user = get_object_or_404(User,pk=user_id)
+    materias=Materia.objects.filter(user = user)           
+    return render(request, 'materias.html', {'materias':materias})
+
 def crearmateria(request, user_id):
     user = get_object_or_404(User,pk=user_id)
     if request.method == 'GET':
@@ -107,3 +106,46 @@ def eliminarmateria(request,user_id, materia_id):
     materia = get_object_or_404(Materia, pk=materia_id,user=request.user)
     materia.delete()
     return redirect('../materia/', materia.user.id)
+
+
+
+def nota(request, user_id, materia_id):                               ###
+    user = get_object_or_404(User,pk=user_id)                         ###
+    materia = get_object_or_404(Materia,pk=materia_id)    ###
+    crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
+    notas=Notas.objects.filter(materia = materia,user = user)         ### 
+    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url})             ###
+
+def crearnota(request, user_id, materia_id):
+    user = get_object_or_404(User,pk=user_id)
+    materia = get_object_or_404(Materia,pk=materia_id)    
+    if request.method == 'GET':
+        return render(request, 'createnotas.html',{'form':NotaForm(), 'materia':materia})
+    else:
+        try:
+            form = NotaForm(request.POST)
+            newNota = form.save(commit=False)
+            newNota.user = request.user
+            newNota.materia = materia
+            newNota.save()
+            return redirect('nota',newNota.materia.id, newNota.user.id) ##########33
+        except ValueError:
+            return render(request,'createnotas.html',{'form':NotaForm(),'error':'bad data passed in'})
+
+def actualizarnota(request,user_id, materia_id, nota_id):
+    nota = get_object_or_404(Notas,pk=nota_id,user=request.user)
+    if request.method == 'GET':
+        form = NotaForm(instance=nota)
+        return render(request, 'updatenotas.html',{'nota': nota,'form':form})
+    else:
+        try:
+            form = NotaForm(request.POST,instance=nota)
+            form.save()
+            return redirect('nota',nota.materia.id, nota.user.id)
+        except ValueError:
+            return render(request,'updatenotas.html',{'nota': nota,'form':form,'error':'Bad data in form'})
+
+def eliminarnota(request, nota_id):
+    nota= get_object_or_404(Notas, pk=nota_id,user=request.user)
+    nota.delete()
+    return redirect('nota',nota.materia.id, nota.user.id)

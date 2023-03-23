@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from .models import Materia
 from .models import Carrera
+from .models import Notas
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label= 'Correo')
@@ -63,4 +64,26 @@ class registrarCarrera(ModelForm):
             'numSemestresTotales': forms.TextInput(attrs={'class': 'form-control'}),
             'numTotalCreditos': forms.TextInput(attrs={'class': 'form-control'})
         }
-    
+
+class NotaForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args,**kwargs)
+        self.fields['nota'].widget.attrs.update({'class': 'form-control' , 'input_type': 'number'})
+        self.fields['porcentaje'].widget.attrs.update({'class': 'form-control' , 'input_type': 'number'})
+        self.fields['descripcion'].widget.attrs.update({'class': 'form-control'})
+
+        
+        
+    class Meta:
+        model = Notas
+        fields = ['nota', 'porcentaje','descripcion']
+        labels = {
+            'nota': 'Nota',
+            'porcentaje': 'Porcentaje',
+            'descripcion': 'Descripcion'
+        }
+        widgets = {
+            'nota': forms.NumberInput(attrs={'class': 'form-control'}),
+            'porcentaje': forms.NumberInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'})
+        }

@@ -21,4 +21,11 @@ class Carrera(models.Model):
     numSemestresTotales = models.IntegerField()
     numTotalCreditos = models.IntegerField()
 
-
+class Notas(models.Model):
+    nota = models.IntegerField()
+    porcentaje=models.IntegerField()
+    descripcion=models.CharField(max_length=50)
+    
+    user =models.ForeignKey(User,on_delete=models.CASCADE)
+    materia = models.ForeignKey(Materia,on_delete=models.CASCADE)
+    

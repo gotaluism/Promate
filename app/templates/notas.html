@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div>
+    <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a></center>  
+</div>
+<ul class="list-group">
+    
+    {% for nota in notas %}
+    {% if user.is_authenticated and user == nota.user %}
+    <li class="list-group-item pb-3 pt-3">
+        <p class="card-text">Nota: {{ nota.nota }}</p>
+        <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>
+        <p class="card-text">Descripcion: {{ nota.descripcion}}</p>
+        <a class="btn btn-primary me-2" href="">Actualizar</a>
+        <a class="btn btn-danger" href="">Eliminar</a>
+        {% comment %} <a class="btn btn-primary me-2" href="{% url 'actualizarnota' user.id materia.id nota.id %}">Actualizar</a>
+        <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a> {% endcomment %}
+
+    </li>
+    
+    {% else %}
+    <h1>Acceso denegado</h1>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock content %}
