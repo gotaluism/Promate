@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load static%}
 <!DOCTYPE html>
 <html>
@@ -14,8 +16,6 @@
             <form class="form" method="post">
                 {% csrf_token %}
                 {{form.as_p}}
-                <label for="password">Password</label>
-                <input type="password" placeholder="Enter Password" name="password">
                 <div class="boton">
                     <button type="submit" id="submit" href="login">Log In</button>
                 </div>
@@ -23,3 +23,4 @@
         </div>
     </body>
 </html>
+{% endblock content %}

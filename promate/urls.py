@@ -25,6 +25,6 @@ urlpatterns = [
     
     path('usuario/<int:user_id>/materia/<int:materia_id>/nota' , appViews.nota, name='nota'),##############
     path('usuario/<int:user_id>/materia/<int:materia_id>/crearnota' , appViews.crearnota, name='crearnota'),
-    path('usuario/<int:user_id>/materia/<int:materia_id>/actualizarnota/<int:nota_id>' , appViews.actualizarnota, name='actualizarnota'),
-    path('usuario/<int:user_id>/materia/<int:materia_id>/eliminarnota/<int:nota_id>' , appViews.actualizarnota, name='eliminarnota'),
+    path('actualizarnota/<int:nota_id>' , appViews.actualizarnota, name='actualizarnota'),
+    path('eliminarnota/<int:nota_id>' , appViews.eliminarnota, name='eliminarnota'),
 ]

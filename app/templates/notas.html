@@ -3,7 +3,10 @@
 
 {% if user.is_authenticated %}
 <div>
-    <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a></center>  
+    <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
+        <br>
+        <h5>Tu nota es de: {{ promedioFin }} </h5></center>  
+    
 </div>
 <ul class="list-group">
     
@@ -13,10 +16,10 @@
         <p class="card-text">Nota: {{ nota.nota }}</p>
         <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>
         <p class="card-text">Descripcion: {{ nota.descripcion}}</p>
-        <a class="btn btn-primary me-2" href="">Actualizar</a>
-        <a class="btn btn-danger" href="">Eliminar</a>
+        <a class="btn btn-primary me-2" href="{% url 'actualizarnota' nota.id %}">Actualizar</a>
+        <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a>
         {% comment %} <a class="btn btn-primary me-2" href="{% url 'actualizarnota' user.id materia.id nota.id %}">Actualizar</a>
-        <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a> {% endcomment %}
+        <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a>  {% endcomment %}
 
     </li>
     

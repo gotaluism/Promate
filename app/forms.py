@@ -84,6 +84,6 @@ class NotaForm(ModelForm):
         }
         widgets = {
             'nota': forms.NumberInput(attrs={'class': 'form-control'}),
-            'porcentaje': forms.NumberInput(attrs={'class': 'form-control'}),
+            'porcentaje': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 100}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'})
         }

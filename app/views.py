@@ -71,8 +71,24 @@ def logoutaccount(request):
 
 def materia(request, user_id):
     user = get_object_or_404(User,pk=user_id)
-    materias=Materia.objects.filter(user = user)           
-    return render(request, 'materias.html', {'materias':materias})
+    materias=Materia.objects.filter(user = user)       
+    promedios = {}
+    for materia in materias:
+        notas = Notas.objects.filter(materia=materia, user=user)
+        promedio = 0
+        suma_porcentajes = 0
+        for nota in notas:
+            promedio += nota.nota * nota.porcentaje
+            suma_porcentajes += nota.porcentaje
+        if suma_porcentajes > 0 and suma_porcentajes <= 100:
+            promedioFin = promedio / suma_porcentajes
+        elif suma_porcentajes == 0:
+            promedioFin = 0.0
+        else: 
+            promedioFin = "Porcentaje pasa de 100%"
+        promedios[materia.id] = promedioFin    
+        
+    return render(request, 'materias.html', {'materias':materias,'promedios': promedios})
 
 def crearmateria(request, user_id):
     user = get_object_or_404(User,pk=user_id)
@@ -113,8 +129,24 @@ def nota(request, user_id, materia_id):                               ###
     user = get_object_or_404(User,pk=user_id)                         ###
     materia = get_object_or_404(Materia,pk=materia_id)    ###
     crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
-    notas=Notas.objects.filter(materia = materia,user = user)         ### 
-    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url})             ###
+    notas=Notas.objects.filter(materia = materia,user = user)         ###
+    
+    
+    promedio=0
+    suma_porcentajes=0
+    for nota in notas:
+        promedio+=nota.nota*nota.porcentaje
+        suma_porcentajes+=nota.porcentaje
+        
+    if suma_porcentajes>0 and suma_porcentajes<=100:
+        promedioFin=promedio/suma_porcentajes
+    elif suma_porcentajes==0:
+        promedioFin=0.0
+    else: 
+        promedioFin= "Porcentaje pasa de 100%"
+
+    
+    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'promedioFin':promedioFin})             ###
 
 def crearnota(request, user_id, materia_id):
     user = get_object_or_404(User,pk=user_id)
@@ -128,11 +160,11 @@ def crearnota(request, user_id, materia_id):
             newNota.user = request.user
             newNota.materia = materia
             newNota.save()
-            return redirect('nota',newNota.materia.id, newNota.user.id) ##########33
+            return redirect('nota',newNota.user.id,newNota.materia.id) ##########33
         except ValueError:
             return render(request,'createnotas.html',{'form':NotaForm(),'error':'bad data passed in'})
 
-def actualizarnota(request,user_id, materia_id, nota_id):
+def actualizarnota(request,nota_id):
     nota = get_object_or_404(Notas,pk=nota_id,user=request.user)
     if request.method == 'GET':
         form = NotaForm(instance=nota)
@@ -141,11 +173,11 @@ def actualizarnota(request,user_id, materia_id, nota_id):
         try:
             form = NotaForm(request.POST,instance=nota)
             form.save()
-            return redirect('nota',nota.materia.id, nota.user.id)
+            return redirect('nota',nota.user.id,nota.materia.id)
         except ValueError:
             return render(request,'updatenotas.html',{'nota': nota,'form':form,'error':'Bad data in form'})
 
 def eliminarnota(request, nota_id):
     nota= get_object_or_404(Notas, pk=nota_id,user=request.user)
     nota.delete()
-    return redirect('nota',nota.materia.id, nota.user.id)
+    return redirect('nota',nota.user.id, nota.materia.id)
