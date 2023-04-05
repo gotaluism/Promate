@@ -10,18 +10,19 @@
                     
                     <div class="col s11">
                         <label for="numero_semestres" class="form-label">Nota 1</label>
-                        <input type="number" class="input-field col s6" id="nota1" min="0" max="5" step="0.01" required>
+                        <input type="number" class="nota" id="nota1" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
-                        <input type="number" class="input-field col s6" id="per1" min="1" max="100" required>
+                        <input type="number" class="porcentaje" id="per1" min="1" max="100" required>
                         <div id="notas1help" class="form-text">Numero de 1 a 5</div>
 
                     </div>
                     <div class="mb-2">
                         <label for="numero_semestres" class="form-label">Nota 2</label>
-                        <input type="number" class="input-field col s6" id="nota2" min="0" max="5" step="0.01" required>
+                        <input type="number" class="nota" id="nota2" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
-                        <input type="number" class="input-field col s4" id="per2" min="1" max="100" required>
-                        <div id="notas1help" class="form-text">Numero de 1 a 5</div>
+                        <input type="number" class="porcentaje" id="per2" min="1" max="100" required>
+                    </div>
+                    <div class="mb-2" id="mbb">
                     </div>
                     <script>
 
@@ -29,7 +30,7 @@
                     <button type="submit" class="btn btn-info" onclick="calcularPromedio()">Calcular</button>
                     <h1 id="respuesta"></h1>
                     <h1 id="alerta"></h1>
-                    <button type="button" class="btn btn-info" id="añadirCampo" onclick="añadirCampo()"> Añadir campo</button>
+                    <button type="button" class="btn btn-info" id="añadirCampo" onclick="set_addField()"> Añadir campo</button>
 
                     
 
@@ -52,8 +53,76 @@
                             }
                             }
                             
-                            function añadirCampo(){}
+                            function set_addField() {
+                                // Crear el elemento de campo
+                                var campo = document.createElement("div");
+                                
+                                // Agregar el label
+                                var label = document.createElement("label");
+                                label.innerHTML = "Nota  ";
+                                label.classList.add("form-label");
+                                campo.appendChild(label);
+                                
+                                // Agregar el input
+                                var input = document.createElement("input");    
+                                input.classList.add("input-field-col-s6", "form-control", "input-pequeno", "nota");
+                                input.setAttribute("type", "number");
+                                campo.appendChild(input);
+    
+                                //Segundo label e input
+                                var label2 = document.createElement("label");
+                                label2.innerHTML = "Porcentaje ";
+                                label2.classList.add("form-label");
+                                campo.appendChild(label2);
+                                
+                                // Agregar el input
+                                var input2 = document.createElement("input");
+                                input2.classList.add("input-field-col-s6", "form-control", "input-pequeno", "porcentaje");
+                                input2.setAttribute("type", "number");
+                                campo.appendChild(input2);
+                                
+                                // Agregar el campo al contenedor
+                                var contenedor = document.querySelector("#mbb");
+                                contenedor.appendChild(campo);
+                            }
+                            function calcularPromedio() {
+                                var notas = document.querySelectorAll(".nota");
+                                var porcentajes = document.querySelectorAll(".porcentaje");
+                                var promedio = 0;
+                                var totalPorcentajes = 0;
+                                
+                                    for (var i = 0; i < notas.length; i++) {
+                                    promedio += notas[i].value * porcentajes[i].value;
+                                    totalPorcentajes += parseFloat(porcentajes[i].value);
+                                    }
+                                
+                                    if(totalPorcentajes>100){
+                                        alert("Supera el 100%");
+                                        return;
+                                    }
+                                promedio /= totalPorcentajes;
+                                
+
+                                document.getElementById("respuesta").innerHTML = "El promedio es: " + promedio.toFixed(2);
+                                event.preventDefault();
+                                if(promedio<2.9){
+                                    document.getElementById("alerta").innerHTML = "Ten cuidado con tu materia, la vas perdiendo" ;
+                                    event.preventDefault();
+                                }else if(promedio >=3 && promedio<3.5){
+                                    document.getElementById("alerta").innerHTML = "No te confíes. No vas perdiendo pero llevas el promedio muy bajito " ;
+
+                                }
+                                }
                     </script>
+                    <style>
+                        .input-pequeno {
+                            width: 80px;
+                            height: 30px;
+                            display: inline-block;
+                            margin-left: 5px;
+                            margin-right: 2px;
+                        }
+                    </style>
                 </div>
             </form>
         </div>
