@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User 
+from datetime import time
 # Create your models here.
 
 
@@ -7,6 +8,7 @@ class Estudiante(models.Model):
     idEstudiante = models.CharField(primary_key=True,max_length=15)
     nombre = models.CharField(max_length=50)
     promedioAcumulado = models.IntegerField()
+    correo = models.EmailField()
 
     
 class Materia(models.Model):
@@ -15,6 +17,10 @@ class Materia(models.Model):
     nombreProfesor=models.CharField(max_length=50)
     cantCreditos=models.IntegerField()
     user =models.ForeignKey(User,on_delete=models.CASCADE)
+    horarioI = models.TimeField(default=time(9,0,0))
+    horarioF = models.TimeField(default=time(12,0,0))
+    estadoAnimoAntes = models.CharField(max_length=500)
+    estadoAnimoDespues = models.CharField(max_length=500)
 
 class Carrera(models.Model):
     nombreCarrera = models.CharField(max_length=50)

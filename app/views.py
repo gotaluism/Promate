@@ -11,6 +11,19 @@ from .forms import MateriaForm
 from .forms import registrarCarrera, NotaForm
 from django.urls import reverse
 
+from datetime import datetime, time, timedelta
+from django.core.mail import send_mail
+from .models import Materia, User
+from tkinter import messagebox as MessageBox
+import tkinter as tk
+import smtplib
+import yagmail
+from email.mime.text import MIMEText
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+smtp_username = 'proyectopromate@gmail.com' # tu dirección de correo electrónico
+smtp_password = 'PROMATE12345' # tu contraseña de correo electrónico
+yag = yagmail.SMTP("proyectopromate@gmail.com", "xqhcbdivgiilrvfs")
 # Create your views here.
 
 def home(request):
@@ -86,7 +99,20 @@ def materia(request, user_id):
             promedioFin = 0.0
         else: 
             promedioFin = "Porcentaje pasa de 100%"
-        promedios[materia.id] = promedioFin    
+        promedios[materia.id] = promedioFin
+        
+    mi_instancia = Materia.objects.filter(pk=17).first()
+    
+    mi_materia = Materia.objects.filter(horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
+    if mi_materia:
+        #Correo del usuario
+        email_address = mi_materia.user.email
+        
+        yag.send(
+            to=email_address,
+            subject="Alerta de inicio de clases",
+            contents=f'La clase {mi_materia.nombreMateria} está por empezar.',
+        ) 
         
     return render(request, 'materias.html', {'materias':materias,'promedios': promedios})
 
