@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 
+
 from .forms import MateriaForm
 from .forms import registrarCarrera, NotaForm
 from django.urls import reverse
@@ -82,6 +83,7 @@ def logoutaccount(request):
     logout(request)
     return redirect('home')
 
+@login_required
 def materia(request, user_id):
     user = get_object_or_404(User,pk=user_id)
     materias=Materia.objects.filter(user = user)       
@@ -94,11 +96,11 @@ def materia(request, user_id):
             promedio += nota.nota * nota.porcentaje
             suma_porcentajes += nota.porcentaje
         if suma_porcentajes > 0 and suma_porcentajes <= 100:
-            promedioFin = promedio / suma_porcentajes
+            promedioFin = round((promedio/suma_porcentajes),2)
         elif suma_porcentajes == 0:
             promedioFin = 0.0
         else: 
-            promedioFin = "Porcentaje pasa de 100%"
+            promedioFin = suma_porcentajes
         promedios[materia.id] = promedioFin
         
     mi_instancia = Materia.objects.filter(pk=17).first()
@@ -116,6 +118,7 @@ def materia(request, user_id):
         
     return render(request, 'materias.html', {'materias':materias,'promedios': promedios})
 
+@login_required
 def crearmateria(request, user_id):
     user = get_object_or_404(User,pk=user_id)
     if request.method == 'GET':
@@ -131,6 +134,7 @@ def crearmateria(request, user_id):
         except ValueError:
             return render(request,'createmateria.html',{'form':MateriaForm(),'error':'bad data passed in'})
 
+@login_required
 def actualizarmateria(request,user_id, materia_id):
     materia = get_object_or_404(Materia,pk=materia_id,user=request.user)
     if request.method == 'GET':
@@ -144,13 +148,14 @@ def actualizarmateria(request,user_id, materia_id):
         except ValueError:
             return render(request,'actualizarmateria.html',{'materia': materia,'form':form,'error':'Bad data in form'})
 
+@login_required
 def eliminarmateria(request,user_id, materia_id):
     materia = get_object_or_404(Materia, pk=materia_id,user=request.user)
     materia.delete()
     return redirect('../materia/', materia.user.id)
 
 
-
+@login_required
 def nota(request, user_id, materia_id):                               ###
     user = get_object_or_404(User,pk=user_id)                         ###
     materia = get_object_or_404(Materia,pk=materia_id)    ###
@@ -165,15 +170,16 @@ def nota(request, user_id, materia_id):                               ###
         suma_porcentajes+=nota.porcentaje
         
     if suma_porcentajes>0 and suma_porcentajes<=100:
-        promedioFin=promedio/suma_porcentajes
+        promedioFin=round((promedio/suma_porcentajes),2)
     elif suma_porcentajes==0:
         promedioFin=0.0
     else: 
-        promedioFin= "Porcentaje pasa de 100%"
+        promedioFin="-"
 
     
     return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'promedioFin':promedioFin})             ###
 
+@login_required
 def crearnota(request, user_id, materia_id):
     user = get_object_or_404(User,pk=user_id)
     materia = get_object_or_404(Materia,pk=materia_id)    
@@ -190,6 +196,7 @@ def crearnota(request, user_id, materia_id):
         except ValueError:
             return render(request,'createnotas.html',{'form':NotaForm(),'error':'bad data passed in'})
 
+@login_required
 def actualizarnota(request,nota_id):
     nota = get_object_or_404(Notas,pk=nota_id,user=request.user)
     if request.method == 'GET':
@@ -203,7 +210,9 @@ def actualizarnota(request,nota_id):
         except ValueError:
             return render(request,'updatenotas.html',{'nota': nota,'form':form,'error':'Bad data in form'})
 
+@login_required
 def eliminarnota(request, nota_id):
     nota= get_object_or_404(Notas, pk=nota_id,user=request.user)
     nota.delete()
     return redirect('nota',nota.user.id, nota.materia.id)
+

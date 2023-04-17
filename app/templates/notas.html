@@ -5,7 +5,20 @@
 <div>
     <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
         <br>
-        <h5>Tu nota es de: {{ promedioFin }} </h5></center>  
+        <h5>Tu nota es de: {{ promedioFin }} </h5></center> 
+        {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5%}
+        <script>
+            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: {{ promedioFin }}',icon: 'warning',confirmButtonText: 'Gracias!'})
+        </script>
+        {% elif promedioFin > 0 and promedioFin < 3.0%}
+        <script>
+            Swal.fire({title: 'Alerta!!',text: 'Llevas la materia perdiendo con: {{ promedioFin }}',icon: 'error',confirmButtonText: 'Gracias!'})
+        </script>
+        {% elif promedioFin == "-" %}
+        <script>
+            Swal.fire({title: 'Error',text: 'Esta materia tiene más de 100%',icon: 'question',confirmButtonText:'Gracias!'})
+        </script>       
+        {% endif %}
     
 </div>
 <ul class="list-group">
