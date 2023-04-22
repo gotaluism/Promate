@@ -28,13 +28,14 @@
                     
                     <button type="submit" class="btn btn-info" onclick="set_addField()"> Añadir campo</button>
                     <script>
+                        var ultimaNota = 2;
                         function set_addField() {
                             // Crear el elemento de campo
                             var campo = document.createElement("div");
                             
                             // Agregar el label
                             var label = document.createElement("label");
-                            label.innerHTML = "Nota semestre  ";
+                            label.innerHTML = "Nota semestre  " +(ultimaNota +=1) + " ";
                             label.classList.add("form-label");
                             campo.appendChild(label);
                             
@@ -99,7 +100,7 @@
                             width: 80px;
                             height: 30px;
                             display: inline-block;
-                            margin-left: 5px;
+                            margin-left: 4px;
                             margin-right: 2px;
                         }
                     </style>

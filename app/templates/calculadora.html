@@ -13,7 +13,7 @@
                         <input type="number" class="nota" id="nota1" min="0" max="5" step="0.01" required>
                         <label for="numero_semestres" class="form-label">Porcentaje</label>
                         <input type="number" class="porcentaje" id="per1" min="1" max="100" required>
-                        <div id="notas1help" class="form-text">Numero de 1 a 5</div>
+                        <div id="notas1help" class="form-text">Nota solo numero de 0 a 5</div>
 
                     </div>
                     <div class="mb-2">
@@ -35,7 +35,7 @@
                     
 
                     <script>
-                        
+
                         function calcularPromedio(){
                             var campo1 = document.getElementById("nota1").value;
                             var campo2 = document.getElementById("nota2").value;
@@ -52,15 +52,17 @@
                                 document.getElementById("alerta").innerHTML = "No te confíes. No vas perdiendo pero llevas el promedio muy bajito " ;
                             }
                             }
-                            
+                            var ultimaNota = 2;
                             function set_addField() {
                                 // Crear el elemento de campo
+                                
                                 var campo = document.createElement("div");
                                 
                                 // Agregar el label
                                 var label = document.createElement("label");
-                                label.innerHTML = "Nota  ";
+                                label.innerHTML = "Nota  " +(ultimaNota +=1) + " ";
                                 label.classList.add("form-label");
+                                label.setAttribute("id", "labelnota1");
                                 campo.appendChild(label);
                                 
                                 // Agregar el input
@@ -73,6 +75,7 @@
                                 var label2 = document.createElement("label");
                                 label2.innerHTML = "Porcentaje ";
                                 label2.classList.add("form-label");
+                                label.setAttribute("id", "labelporcentaje");
                                 campo.appendChild(label2);
                                 
                                 // Agregar el input
@@ -84,6 +87,7 @@
                                 // Agregar el campo al contenedor
                                 var contenedor = document.querySelector("#mbb");
                                 contenedor.appendChild(campo);
+
                             }
                             function calcularPromedio() {
                                 var notas = document.querySelectorAll(".nota");
@@ -116,11 +120,11 @@
                     </script>
                     <style>
                         .input-pequeno {
-                            width: 80px;
-                            height: 30px;
+                            width: 85px;
+                            height: 28px;
                             display: inline-block;
-                            margin-left: 5px;
-                            margin-right: 2px;
+                            margin-left: 2px;
+                            margin-right: 3px;
                         }
                     </style>
                 </div>

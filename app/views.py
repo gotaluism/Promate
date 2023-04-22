@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+
 from .models import *
 from .forms import UserRegisterForm
 from django.contrib import messages
@@ -12,14 +12,14 @@ from .forms import MateriaForm
 from .forms import registrarCarrera, NotaForm
 from django.urls import reverse
 
-from datetime import datetime, time, timedelta
-from django.core.mail import send_mail
+from datetime import datetime,  timedelta
+
 from .models import Materia, User
-from tkinter import messagebox as MessageBox
-import tkinter as tk
-import smtplib
+
+
+
 import yagmail
-from email.mime.text import MIMEText
+
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 smtp_username = 'proyectopromate@gmail.com' # tu dirección de correo electrónico

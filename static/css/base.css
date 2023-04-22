@@ -25,7 +25,8 @@ section{
 #hero{
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/fondo.jpg);
+    background: linear-gradient(rgba(85, 139, 146, 0.6), rgba(51, 158, 168, 0.6));
+    background-color: #a1bee3;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -42,10 +43,15 @@ section{
     font-size: 48px;
     font-weight: 700;
     line-height: 56px;
-    color: #fff;
     margin: 0 0 10px;
+    background: linear-gradient(to right,#567cb1, #5c7eaa, #735ea2, #796b9b, #8e467d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
 
 }
+
 #hero .btn_get_started{
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
@@ -93,4 +99,27 @@ section{
 #hero .btn_btn-primary:hover{
     background-color: #009970;
     border: 2px solid #009970;
+}
+
+#navs:hover{
+    color:#dea0ce;
+
+}
+
+#navs{
+    font-weight: bold;
+    color:#c0b5da;
+
+}
+
+#nota1, #nota2 {
+    width: 85px;
+    height: 28px;
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 4px;
+}
+
+#labelnota1{
+    margin-right: 4px;
 }

@@ -27,7 +27,8 @@ section{
 #hero{
     width: 100%;
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/fondo.jpg);
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+    background-color: #6ee1e1;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
