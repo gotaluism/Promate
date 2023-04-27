@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
-
+from django.views.generic import TemplateView
 
 from .forms import MateriaForm
 from .forms import registrarCarrera, NotaForm
@@ -24,7 +24,7 @@ smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 smtp_username = 'proyectopromate@gmail.com' # tu dirección de correo electrónico
 smtp_password = 'PROMATE12345' # tu contraseña de correo electrónico
-yag = yagmail.SMTP("proyectopromate@gmail.com", "xqhcbdivgiilrvfs")
+yag =  yagmail.SMTP("promatepi2@gmail.com", "rjqrxpnhpgavlgvk")
 # Create your views here.
 
 def home(request):
@@ -215,4 +215,13 @@ def eliminarnota(request, nota_id):
     nota= get_object_or_404(Notas, pk=nota_id,user=request.user)
     nota.delete()
     return redirect('nota',nota.user.id, nota.materia.id)
+
+class chart(TemplateView):
+    template_name="notas.html"
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(self, **kwargs)    
+        context = super().get_context_data(**kwargs)
+        context["qs"] = Notas.objects.all()
+        return context
+    
 

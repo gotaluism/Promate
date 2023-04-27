@@ -35,3 +35,6 @@ class Notas(models.Model):
     user =models.ForeignKey(User,on_delete=models.CASCADE)
     materia = models.ForeignKey(Materia,on_delete=models.CASCADE)
     
+    def __str__(self):
+        return "{}-{}".format(self.nota,self.descripcion)
+    
