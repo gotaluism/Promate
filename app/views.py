@@ -14,9 +14,9 @@ from django.urls import reverse
 
 from datetime import datetime,  timedelta
 
-from .models import Materia, User
+from .models import Materia, User, Notas
 
-
+from django.views.generic import TemplateView
 
 import yagmail
 
@@ -24,7 +24,7 @@ smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 smtp_username = 'proyectopromate@gmail.com' # tu dirección de correo electrónico
 smtp_password = 'PROMATE12345' # tu contraseña de correo electrónico
-yag = yagmail.SMTP("proyectopromate@gmail.com", "xqhcbdivgiilrvfs")
+yag = yagmail.SMTP("promatepi2@gmail.com", "rjqrxpnhpgavlgvk")
 # Create your views here.
 
 def home(request):
@@ -116,7 +116,10 @@ def materia(request, user_id):
             contents=f'La clase {mi_materia.nombreMateria} está por empezar.',
         ) 
         
+        print(materias)
+        print(promedios)
     return render(request, 'materias.html', {'materias':materias,'promedios': promedios})
+
 
 @login_required
 def crearmateria(request, user_id):

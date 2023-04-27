@@ -11,6 +11,52 @@
                     <ul class="list-group">
                         {% for materia in materias %}
                         {% if user.is_authenticated and user == materia.user %}
+                        <head>
+                            <!-- Required meta tags -->
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <!-- semantic UI -->
+                            <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+                            <!--Chart js-->
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+                            <!-- jQuery -->
+                            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                        
+                            <title></title>
+                        </head>
+                        <body>
+                        {%block title%}Notas de las materias{%endblock title%}
+                        {%block scripts%}
+                        <script>
+                        $(document).ready(function(){
+                                    const ctx = document.getElementById('myChart');
+                                
+                                    new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [{{materia.nombreMateria}} ],
+                                        datasets: [{
+                                        data: [{{materia.nombreProfesor}}],
+                                        borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                        }
+                                    }
+                                    });
+                                
+                            });
+                        </script>
+                        {%endblock scripts%}
+                        
+                        <canvas id="myChart"></canvas>
+                        
+                        </body>
                         <li class="list-group-item pb-3 pt-3">
                             {% comment %} <h5 class="card-title"> <a href="{% url '' %}"> {{ materia.nombreMateria }} </a> </h5> {% endcomment %}
                             <h5 class="card-title"><a href="{% url 'nota' user.id materia.id  %}">{{ materia.nombreMateria }}</a></h5>
@@ -18,7 +64,7 @@
                             <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
                             <p class="card-text">Horario Inicio: {{ materia.horarioI }}
                             <p class="card-text">Horario Finalizacion: {{ materia.horarioF }}
-                            <p>Promedio: {{ promedios }}  </p>
+                            <p>Promedio: {{ materias }}  </p>
                             <a class="btn btn-primary me-2" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>
                             <a class="btn btn-danger" href="{% url 'eliminarmateria' user.id materia.id %}">Eliminar</a>
 
