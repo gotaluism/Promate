@@ -12,71 +12,73 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
 
   <title></title>
 </head>
 <body>
-{%block title%}Grafica de las notas de las materias{%endblock title%}
-{%block scripts%}
-<script>
-$(document).ready(function(){
-          const ctx = document.getElementById('myChart');
-      
-          new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: ["Parcial 1","Parcial 2","Parcial 3","Parcial 4","Quiz 1","Quiz2"],
-              datasets: [{
-              label: 'Nota',
-              data: [1,3,5,4,3,4],
-              backgorundColor:[
-              'rgba(255,99,132,0.2)',
-              'rgba(54,162,235,0.2)',
-              'rgba(255,206,86,0.2)',
-              'rgba(75,192,192,0.2)',
-              'rgba(153,102,255,0.2)',
-              'rgba(255,159,64,0.2)',
-              ],
-              borderColor: [
-              'rgba(255,99,132,0.2)',
-              'rgba(54,162,235,0.2)',
-              'rgba(255,206,86,0.2)',
-              'rgba(75,192,192,0.2)',
-              'rgba(153,102,255,0.2)',
-              'rgba(255,159,64,0.2)',
-              ],
-              borderWidth: 1
-              }]
-          },
-          options: {
-              scales: {
-              y: {
-                  beginAtZero: true
-              }
-              }
-          }
-          });
-      
-  });
-</script>
-{%endblock scripts%}
 
-<canvas id="myChart"></canvas>
+
+
+
+{% comment %} ----------------------------------------------------------------------------- {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div>
+    <canvas id="graficaNotas"></canvas>
+</div>
+<script>
+    const ctx = document.getElementById('graficaNotas');
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{labels|safe}},
+            datasets: [{
+                label: 'Nota',
+                data: {{data|safe}},
+                backgroundColor: "#808080",
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+            title: {
+                display: true,
+                text: 'Grafica Materia'
+            }
+        },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 5,
+                    stepSize: 0.1
+                }
+            }
+        }
+    });
+</script>
+{% comment %} ---------------------------------------------------------------------------- {% endcomment %}
+
+
     <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
         <br>
         <h5>Tu nota es de: {{ promedioFin }} </h5></center> 
-        {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5%}
+        {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5 and sumaPorcentajes < 100 %}
         <script>
-            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: {{ promedioFin }}',icon: 'warning',confirmButtonText: 'Gracias!'})
+            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: <bold>{{ promedioFin }} </bold> , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
         </script>
-        {% elif promedioFin > 0 and promedioFin < 3.0%}
+        {% elif promedioFin > 0 and promedioFin < 3.0 and sumaPorcentajes < 100 %}
         <script>
-            Swal.fire({title: 'Alerta!!',text: 'Llevas la materia perdiendo con: {{ promedioFin }}',icon: 'error',confirmButtonText: 'Gracias!'})
+            Swal.fire({title: 'Alerta!!',text: 'Llevas la materia perdiendo con:  {{ promedioFin }} , aún puedes remontar 🫵, llevas el {{ sumaPorcentajes }}% del curso',icon: 'error',confirmButtonText: 'Gracias! 😣'})
         </script>
-        {% elif promedioFin == "-" %}
+        {% elif promedioFin > 0 and promedioFin < 3.0 and sumaPorcentajes == 100 %}
         <script>
-            Swal.fire({title: 'Error',text: 'Esta materia tiene más de 100%',icon: 'question',confirmButtonText:'Gracias!'})
+            Swal.fire({title: 'Alerta!!',text: 'Nos vemos el otro semestre 😭, sacaste:  {{ promedioFin }} en el 100% del curso ',icon: 'error',confirmButtonText: 'Gracias! 💩'})
+        </script>
+        {% elif sumaPorcentajes > 100 %}
+        <script>
+            Swal.fire({title: 'Error',text: 'Te fallaron las matematicas 🙈, esta materia tiene {{ sumaPorcentajes }}% ; más de 100%',icon: 'question',confirmButtonText:'Gracias!'})
         </script>       
         {% endif %}
     
@@ -85,6 +87,7 @@ $(document).ready(function(){
     
     {% for nota in notas %}
     {% if user.is_authenticated and user == nota.user %}
+    
     <li class="list-group-item pb-3 pt-3">
         <p class="card-text">Nota: {{ nota.nota }}</p>
         <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>

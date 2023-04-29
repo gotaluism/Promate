@@ -85,6 +85,10 @@ def logoutaccount(request):
 
 @login_required
 def materia(request, user_id):
+    
+    labels=[]
+    data=[]
+    
     user = get_object_or_404(User,pk=user_id)
     materias=Materia.objects.filter(user = user)       
     promedios = {}
@@ -97,11 +101,12 @@ def materia(request, user_id):
             suma_porcentajes += nota.porcentaje
         if suma_porcentajes > 0 and suma_porcentajes <= 100:
             promedioFin = round((promedio/suma_porcentajes),2)
-        elif suma_porcentajes == 0:
-            promedioFin = 0.0
         else: 
-            promedioFin = suma_porcentajes
+            promedioFin = 0.0
         promedios[materia.id] = promedioFin
+        
+        labels.append(materia.nombreMateria)
+        data.append(promedioFin)
         
     mi_instancia = Materia.objects.filter(pk=17).first()
     
@@ -116,7 +121,7 @@ def materia(request, user_id):
             contents=f'La clase {mi_materia.nombreMateria} está por empezar.',
         ) 
         
-    return render(request, 'materias.html', {'materias':materias,'promedios': promedios})
+    return render(request, 'materias.html', {'materias':materias,'promedios': promedios,'labels':labels,'data':data})
 
 @login_required
 def crearmateria(request, user_id):
@@ -156,13 +161,20 @@ def eliminarmateria(request,user_id, materia_id):
 
 
 @login_required
-def nota(request, user_id, materia_id):                               ###
+def nota(request, user_id, materia_id): 
+
+    labels=[]
+    data=[]
+    
     user = get_object_or_404(User,pk=user_id)                         ###
     materia = get_object_or_404(Materia,pk=materia_id)    ###
     crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
-    notas=Notas.objects.filter(materia = materia,user = user)         ###
+    notas=Notas.objects.filter(materia = materia,user = user)        
     
-    
+    for notica in notas:
+        labels.append(notica.descripcion)
+        data.append(notica.nota)
+        
     promedio=0
     suma_porcentajes=0
     for nota in notas:
@@ -171,13 +183,11 @@ def nota(request, user_id, materia_id):                               ###
         
     if suma_porcentajes>0 and suma_porcentajes<=100:
         promedioFin=round((promedio/suma_porcentajes),2)
-    elif suma_porcentajes==0:
+    else:
         promedioFin=0.0
-    else: 
-        promedioFin="-"
 
-    
-    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'promedioFin':promedioFin})             ###
+
+    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
 
 @login_required
 def crearnota(request, user_id, materia_id):

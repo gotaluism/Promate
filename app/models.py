@@ -21,6 +21,7 @@ class Materia(models.Model):
     horarioF = models.TimeField(default=time(12,0,0))
     estadoAnimoAntes = models.CharField(max_length=500)
     estadoAnimoDespues = models.CharField(max_length=500)
+    
 
 class Carrera(models.Model):
     nombreCarrera = models.CharField(max_length=50)
