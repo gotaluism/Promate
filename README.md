@@ -3,8 +3,8 @@ Promate es un software que le facilitara a vida al estudiante para calcular el p
 
 ## Librarias instaladas antes de correr el programa
 pip install django<br>
-pip install django-cron
-pip install yagmail
+pip install django-cron <br>
+pip install yagmail  <br>
 npm install chart.js
 ## Comandos necesarios para correr el programa
 python manage.py runserver<br>
