@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block content %}
+<h1><center>Perfil<center></h1> 
+    <br>
+<h2><center>{{user.username}}<center></h2>
+{% if user.is_authenticated %}
+ <a href="{% url 'aggperfil' user.id %}" class="btn btn-primary">Agregar Carrera</a>
+ {% endif %}
+
+ {% for carrera in carreras %}
+ {% if user.is_authenticated and user == carrera.user %}
+ <li class="list-group-item pb-3 pt-3">
+ <h5 class="card-title">
+ Carrera: {{ carrera.nombreCarrera }} 
+ </h5>
+ <h6 class="card-subtitle mb-2 text-muted">
+  Numero de semestres: {{ carrera.numSemestresTotales }}</h6>
+ <p class="card-text"> Numero de creditos {{ carrera.numTotalCreditos}}</p>
+
+ <a class="btn btn-danger" href="{% url 'delperfil' user.id carrera.id %}">Delete</a>
+ {% endif %}
+ </li>
+ {% endfor %}
+ </ul>
+
+
+{% endblock content %}

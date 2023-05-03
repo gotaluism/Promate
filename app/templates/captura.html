@@ -1,46 +1,33 @@
 
 {% extends 'base.html'%}
 {% block content %}
-    {% comment %} <section id="hero" class="d-flex align-items-center">
-        <div class="container text-center">
-            <form>
-                <div class="mb-2">
-                    <label for="nombre_carrera" class="form-label">Ingresa el nombre de tu carrera</label>
-                    <input type="text"id="nombre_carrera" aria-describedby="carreraHelp">
-                    <div id="carreraHelp" class="form-text">Ej: Ingenieria de sistemas</div>
-                </div>
-                <div class="mb-3">  
-                    <label for="numero_semestres" class="form-label">Numero de semestres totales</label>
-                    <input type="number" id="numero_semestres" aria-describedby="semestresHelp">
-                    <div id="semestresHelp" class="form-text">Ej: 9</div>
-                    
-                </div>
-                <div class="mb-3">  
-                    <label for="numero_semestres" class="form-label">Numero de creditos totales</label>
-                    <input type="number" id="numero_semestres" aria-describedby="semestresHelp">
-                    <div id="semestresHelp" class="form-text">Ej: 128</div>
-                    
-                </div>
-                
 
-                <button type="submit" class="btn_btn-primary" href="materias">Siguiente</button>
-            </form>
-            
+    {% if error == "Ya hay 2 carreras registradas" %}
+    <div class="alert alert-danger mt-3" role="alert">
+    {{ error }}
+    <br>
+    <a class="btn btn-danger" href="{% url 'perfil' user.id %}">Regresar</a>
+    </div>
+    {% else %}
+
+    {% if error %}
+    <div class="alert alert-danger mt-3" role="alert">
+        {{ error }}
         </div>
-    </section> {% endcomment %}
-    {{ mensaje }}
-    <p class="card-text">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit"
-            class="btn btn-primary">
-            Guardar Datos
-        </button>
-    </form>
+        {% endif %}
+<p class="card-text">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"
+        class="btn btn-primary">
+        Guardar Datos
+    </button>
+</form>
 </p>
+{% endif %}
 
-    <script type="text/javascript" src="static/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="static/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock content %}
 

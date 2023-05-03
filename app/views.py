@@ -30,22 +30,35 @@ yag =  yagmail.SMTP("promatepi2@gmail.com", "rjqrxpnhpgavlgvk")
 def home(request):
     return render(request, 'home.html')
 
-def capturarDatos(request):
-    # user = get_object_or_404(User,pk=user_id)
-    if request.method == 'GET':
-        return render(request, 'captura.html',{'form':registrarCarrera()})
+def aggperfil(request, user_id):
+    user = get_object_or_404(User,pk=user_id)
+    carreras=Carrera.objects.filter(user = user)
+    if carreras.count()>=2:
+        return render(request,'captura.html',{'form':"-",'error':'Ya hay 2 carreras registradas'})
     else:
-        try:    
-            form = registrarCarrera(request.POST)
-            newMateria = form.save(commit=False)
-            newMateria.save()
-            # return redirect('../actualizarperfil/')
-            return render(request,'captura.html',{'mensaje':'Datos Guardados correctamente'})
-        except ValueError:
-            return render(request,'captura.html',{'form':registrarCarrera(),'error':'bad data passed in'})
+        if request.method == 'GET':
+            return render(request, 'captura.html',{'form':registrarCarrera(),'user':user})
+        else:
+            try:    
+                form = registrarCarrera(request.POST)
+                newMateria = form.save(commit=False)
+                newMateria.user=request.user
+                newMateria.save()
+                return redirect('perfil',newMateria.user.id)
+                #return render(request,'captura.html',{'mensaje':'Datos Guardados correctamente'})
+            except ValueError:
+                return render(request,'captura.html',{'form':registrarCarrera(),'error':'bad data passed in'})
     # return render(request, 'captura.html')
     
+def perfil(request,user_id):
+    user = get_object_or_404(User,pk=user_id)
+    carreras=Carrera.objects.filter(user = user)
+    return render(request,'perfil.html',{'carreras':carreras})
 
+def delperfil(request,user_id,carrera_id):
+    carrera = get_object_or_404(Carrera, pk=carrera_id,user=request.user)
+    carrera.delete()
+    return redirect('perfil',carrera.user.id)
 
 def calculadora(request):                     
     return render(request, 'calculadora.html')
