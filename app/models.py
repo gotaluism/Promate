@@ -29,7 +29,7 @@ class Carrera(models.Model):
     numTotalCreditos = models.IntegerField()
 
 class Notas(models.Model):
-    nota = models.IntegerField()
+    nota = models.FloatField()
     porcentaje=models.IntegerField()
     descripcion=models.CharField(max_length=50)
     
