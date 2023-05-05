@@ -7,7 +7,7 @@
 
     </head>
     <body>
-        {% extends 'base.html' %}
+        {% extends 'base2.html' %}
         {% block content %}
         {% if messages %}
             {% for message in messages%}
@@ -20,9 +20,10 @@
         <div class="login-box-r">
             <form class="form" method="post">
             <h1>Crea una cuenta</h1>
-            
+
                 {% csrf_token %}
                 {{form.as_p}}
+
                 <div class="boton">
                     <button type="submit" id="submit" href="login">Registrarse</button>
                 </div>

@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">    
 <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-
+<link href="{% static 'css/registro.css'%}" rel="stylesheet"> 
 
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <script type="text/javascript" src="static/js/scripts.js"></script>
@@ -42,57 +42,31 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse"
-    id="navbarNavAltMarkup">
-    <div class="navbar-nav ms-auto">
-        {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'calculadora' %}" id="navs">Calculadora para materias </a>
-        <a class="nav-link" href="{% url 'calculadora2'%}" id="navs">Calculadora ponderado </a>
-        <a class="nav-link" href="{% url 'calculadora3'%}" id="navs">Calculadora acumulado </a>
-        <a class="nav-link" href="{% url 'perfil' user.id %}" id="navs">Perfil</a>
-        <a class="nav-link" href="{% url 'materia' user.id %}" id="navs">Materias</a>
-        <a class="nav-link" href="{% url 'logoutaccount' %}" id="navs">Logout ({{ user.username }})</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'calculadora' %}" id="navs">Calculadora para materias </a>
+                <a class="nav-link" href="{% url 'calculadora2'%}" id="navs">Calculadora ponderado </a>
+                <a class="nav-link" href="{% url 'calculadora3'%}" id="navs">Calculadora acumulado </a>
+                <a class="nav-link" href="{% url 'perfil' user.id %}" id="navs">Perfil</a>
+                <a class="nav-link" href="{% url 'materia' user.id %}" id="navs">Materias</a>
+                <a class="nav-link" href="{% url 'logoutaccount' %}" id="navs">Logout ({{ user.username }})</a>
 
-        {% else %}
-        <a class="nav-link" href="{% url 'login'%}" id="navs">Login</a>  
-        <a class="nav-link" href="{% url 'register'%}" id="navs">Sign Up</a> 
-        {% endif %}
+                {% else %}
+                <a class="nav-link" href="{% url 'login'%}" id="navs">Login</a>  
+                <a class="nav-link" href="{% url 'register'%}" id="navs">Sign Up</a> 
+                {% endif %}
+            </div>
+        {% comment %} iniciar seccion crear cuenta {% endcomment %}
+        </div>
     </div>
-    {% comment %} iniciar seccion crear cuenta {% endcomment %}
-</div>
-</div>
 </nav>
-<hr>
+
 
 <div class="container">
     {% block content %}
     {% endblock content %}
 </div>
 
-<hr>
-<footer class="text-center text-lg-start bg-light
-text-muted mt-4" style="background-color: #00000;">
-
-
-<div class="text-center p-1" >
-    <a class="text-reset fw-bold text-decoration-none"
-    target="_blank" 
-    href="https://twitter.com/">
-    Santiago Arias
-</a> -
-<a class="text-reset fw-bold text-decoration-none"
-target="_blank"
-href="https://twitter.com/">
-Vanessa Velez
-</a> -
-<a class="text-reset fw-bold text-decoration-none"
-target="_blank"
-href="https://twitter.com/gotaluism">
-Luis Miguel
-</a>
-</div>
-<div class="text-center p-1">Made with ❤️</div>
-
-</footer>
 </body>
 </html>

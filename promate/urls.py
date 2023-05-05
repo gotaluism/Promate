@@ -31,5 +31,6 @@ urlpatterns = [
     path('usuario/<int:user_id>/materia/<int:materia_id>/crearnota' , appViews.crearnota, name='crearnota'),
     path('actualizarnota/<int:nota_id>' , appViews.actualizarnota, name='actualizarnota'),
     path('eliminarnota/<int:nota_id>' , appViews.eliminarnota, name='eliminarnota'),
-    path('grafi/',appViews.chart.as_view(), name='grafica')
+    path('grafi/',appViews.chart.as_view(), name='grafica'),
+    path('login/captura/', appViews.home, name='homee'),
 ]

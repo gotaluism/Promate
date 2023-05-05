@@ -1,36 +1,78 @@
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     background-size: cover;
     font-family: sans-serif;
+    background: linear-gradient(rgba(85, 139, 146, 0.6), rgba(51, 158, 168, 0.6));
+    background-color: #a1bee3;
+    
     
 }
 
+.navbar{
+    background-color: #fff;
+}
+
+
+
 .login-box {
+    margin-top: 90px;
+    height: 430px;
     width: 400px;
-    height: 400px;
-    background: #80d1e5;
+    position: absolute;
+    background: transparent;
+    border-radius: 24px;
+    border: 3px solid rgba(257, 257, 257, .4);
+    backdrop-filter: blur(25px);
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all ease .35s;
+    text-align: center;
     color: #000000;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .login-box-r {
+    margin-top: 90px;
+    height: 530px;
     width: 400px;
-    height: 560px;
-    background: #80d1e5;
+    position: absolute;
+    background: transparent;
+    border-radius: 24px;
+    border: 3px solid rgba(257, 257, 257, .4);
+    backdrop-filter: blur(25px);
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all ease .35s;
+    text-align: center;
     color: #000000;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
+    display: flex;
+    flex-direction: column;
 }
+/* Agregar un estilo para los campos de tipo password */
+.login-box-r input[type="password"] {
+    margin-bottom: 20px;
+    display: grid;
+    flex-direction: column;
+}
+
 .login-box .avatar, .login-box-r .avatar {
     width: 100px;
     height: 100px;
