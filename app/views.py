@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.views.generic import TemplateView
 
-from .forms import MateriaForm
-from .forms import registrarCarrera, NotaForm
+
+from .forms import *
+
 from django.urls import reverse
 
 from datetime import datetime,  timedelta
@@ -96,6 +97,7 @@ def logoutaccount(request):
     logout(request)
     return redirect('home')
 
+#___MATERIA___________________________________________________________________
 @login_required
 def materia(request, user_id):
     
@@ -121,7 +123,6 @@ def materia(request, user_id):
         labels.append(materia.nombreMateria)
         data.append(promedioFin)
         
-    mi_instancia = Materia.objects.filter(pk=17).first()
     
     mi_materia = Materia.objects.filter(horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
     if mi_materia:
@@ -131,8 +132,9 @@ def materia(request, user_id):
         yag.send(
             to=email_address,
             subject="Alerta de inicio de clases",
-            contents=f'La clase {mi_materia.nombreMateria} está por empezar.',
-        ) 
+            contents=f'La clase {mi_materia.nombreMateria} está por empezar, entra a Promate e introduce como te sientes!!',
+        )
+        # return redirect('aggestadoanimoantes', mi_materia.user.id ,mi_materia.id )
         
     return render(request, 'materias.html', {'materias':materias,'promedios': promedios,'labels':labels,'data':data})
 
@@ -171,8 +173,9 @@ def eliminarmateria(request,user_id, materia_id):
     materia = get_object_or_404(Materia, pk=materia_id,user=request.user)
     materia.delete()
     return redirect('../materia/', materia.user.id)
+#______________________________________________________________________
 
-
+#____NOTAA______________________________________________________________________
 @login_required
 def nota(request, user_id, materia_id): 
 
@@ -182,7 +185,19 @@ def nota(request, user_id, materia_id):
     user = get_object_or_404(User,pk=user_id)                         ###
     materia = get_object_or_404(Materia,pk=materia_id)    ###
     crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
-    notas=Notas.objects.filter(materia = materia,user = user)        
+    crear_animo_antes= 0
+    crear_animo_despues= 0 
+    notas=Notas.objects.filter(materia = materia,user = user)   
+    
+    mi_materia_antes = Materia.objects.filter(user=user,horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
+    mi_materia_despues = Materia.objects.filter(user=user,horarioF__gte=datetime.now()- timedelta(minutes=15) , horarioF__lte=datetime.now()).first()
+    
+    if mi_materia_antes:
+        crear_animo_antes= reverse('aggestadoanimoantes', args=[user_id, materia_id])
+    
+    if mi_materia_despues:
+        crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, materia_id])
+        
     
     for notica in notas:
         labels.append(notica.descripcion)
@@ -200,7 +215,7 @@ def nota(request, user_id, materia_id):
         promedioFin=0.0
 
 
-    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
+    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
 
 @login_required
 def crearnota(request, user_id, materia_id):
@@ -238,7 +253,44 @@ def eliminarnota(request, nota_id):
     nota= get_object_or_404(Notas, pk=nota_id,user=request.user)
     nota.delete()
     return redirect('nota',nota.user.id, nota.materia.id)
+#_______________________________________________________________________________
 
+#___ESTADO ANIMO ANTES________________________________________________________________
+def aggestadoanimoantes(request, user_id, materia_id):
+    user = get_object_or_404(User,pk=user_id)
+    materia = get_object_or_404(Materia,pk=materia_id)  
+    if request.method == 'GET':
+        return render(request, 'createAnimoAntes.html',{'form':AnimoAntesForm(), 'materia':materia})
+    else:
+        try:
+            form = AnimoAntesForm(request.POST)
+            newNota = form.save(commit=False)
+            newNota.user = request.user
+            newNota.materia = materia
+            newNota.save()
+            return redirect('nota',newNota.user.id,newNota.materia.id) ##########33
+        except ValueError:
+            return render(request,'createAnimoAntes.html',{'form':AnimoAntesForm(),'error':'bad data passed in'})
+
+#______________________________________________________________________
+
+#___ESTADO ANIMO DESPUES___________________________________________________________________
+def aggestadoanimodespues(request, user_id, materia_id):
+    user = get_object_or_404(User,pk=user_id)
+    materia = get_object_or_404(Materia,pk=materia_id)  
+    if request.method == 'GET':
+        return render(request, 'createAnimoDespues.html',{'form':AnimoDespuesForm(), 'materia':materia})
+    else:
+        try:
+            form = AnimoDespuesForm(request.POST)
+            newNota = form.save(commit=False)
+            newNota.user = request.user
+            newNota.materia = materia
+            newNota.save()
+            return redirect('nota',newNota.user.id,newNota.materia.id) ##########33
+        except ValueError:
+            return render(request,'createAnimoDespues.html',{'form':AnimoDespuesForm(),'error':'bad data passed in'})
+#______________________________________________________________________
 class chart(TemplateView):
     template_name="notas.html"
     def get_context_data(self,**kwargs):
@@ -247,4 +299,5 @@ class chart(TemplateView):
         context["qs"] = Notas.objects.all()
         return context
     
+
 

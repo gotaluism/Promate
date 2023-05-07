@@ -3,9 +3,10 @@ from django.forms import ModelForm, Textarea
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.models import User
 
-from .models import Materia
-from .models import Carrera
-from .models import Notas
+# from .models import Materia
+# from .models import Carrera
+# from .models import Notas
+from .models import *
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label= 'Correo')
@@ -92,3 +93,25 @@ class NotaForm(ModelForm):
             'porcentaje': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 100}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'})
         }
+        
+class AnimoAntesForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args,**kwargs)
+        self.fields['estadoAnimoAntes'].widget.attrs.update({'class': 'form-control',})
+
+    class Meta:
+        model = EstadoAnimoAntes
+        fields = ['estadoAnimoAntes']
+        labels = {
+            'estadoAnimoAntes': 'Tu estado de animo antes es:'}
+
+class AnimoDespuesForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args,**kwargs)
+        self.fields['estadoAnimoDespues'].widget.attrs.update({'class': 'form-control',})
+
+    class Meta:
+        model = EstadoAnimoDespues
+        fields = ['estadoAnimoDespues']
+        labels = {
+            'estadoAnimoDespues': 'Tu estado de animo despues es:'}

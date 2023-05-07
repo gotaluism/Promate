@@ -15,8 +15,10 @@ class Materia(models.Model):
     user =models.ForeignKey(User,on_delete=models.CASCADE)
     horarioI = models.TimeField(default=time(9,0,0))
     horarioF = models.TimeField(default=time(12,0,0))
-    estadoAnimoAntes = models.CharField(max_length=500)
-    estadoAnimoDespues = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return "{}-{}".format(self.nombreMateria,self.cantCreditos)
+
     
 class Carrera(models.Model):
     nombreCarrera = models.CharField(max_length=50)
@@ -36,3 +38,24 @@ class Notas(models.Model):
     def __str__(self):
         return "{}-{}".format(self.nota,self.descripcion)
     
+
+estadoAnimo=[
+    (1,'FELIZ 😃'),
+    (2,'TRISTE 😭'),
+    (3,'ESTRESADO 😵‍💫'),
+    (4,'ABURRIDO 😐')
+]
+
+class EstadoAnimoAntes(models.Model):
+    estadoAnimoAntes = models.IntegerField(null=False,blank=False,choices=estadoAnimo,default=1)
+    user =models.ForeignKey(User,on_delete=models.CASCADE)
+    materia = models.ForeignKey(Materia,on_delete=models.CASCADE)
+    def __str__(self):
+        return "{}-{}".format(self.user,self.estadoAnimoAntes)
+
+class EstadoAnimoDespues(models.Model):
+    estadoAnimoDespues = models.IntegerField(null=False,blank=False,choices=estadoAnimo,default=1)
+    user =models.ForeignKey(User,on_delete=models.CASCADE)
+    materia = models.ForeignKey(Materia,on_delete=models.CASCADE)
+    def __str__(self):
+        return "{}-{}".format(self.user,self.estadoAnimoDespues)

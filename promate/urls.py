@@ -27,6 +27,9 @@ urlpatterns = [
     path('usuario/<int:user_id>/actualizarmateria/<int:materia_id>' , appViews.actualizarmateria, name='actualizarmateria'),
     path('usuario/<int:user_id>/eliminarmateria/<int:materia_id>' , appViews.eliminarmateria, name='eliminarmateria'),
     
+    path('usuario/<int:user_id>/materia/<int:materia_id>/aggestadoanimoantes/', appViews.aggestadoanimoantes, name='aggestadoanimoantes'),
+    path('usuario/<int:user_id>/materia/<int:materia_id>/aggestadoanimodespues/', appViews.aggestadoanimodespues, name='aggestadoanimodespues'),
+    
     path('usuario/<int:user_id>/materia/<int:materia_id>/nota' , appViews.nota, name='nota'),##############
     path('usuario/<int:user_id>/materia/<int:materia_id>/crearnota' , appViews.crearnota, name='crearnota'),
     path('actualizarnota/<int:nota_id>' , appViews.actualizarnota, name='actualizarnota'),

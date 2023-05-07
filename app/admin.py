@@ -7,3 +7,6 @@ from .models import *
 admin.site.register(Materia)
 admin.site.register(Carrera)
 admin.site.register(Notas)
+
+admin.site.register(EstadoAnimoAntes)
+admin.site.register(EstadoAnimoDespues)

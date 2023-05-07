@@ -62,11 +62,26 @@
 
 
     <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
+        <center><br>
+            
+    {% if crear_animo_antes != 0  %}
+        <center><a href="{{ crear_animo_antes }}"class="btn btn-primary">Agregar estado animo antes</a>
+    {% else %}
+    {% endif %}
+
+    <center><br>
+
+    {% if crear_animo_despues != 0  %}
+    <center><a href="{{ crear_animo_despues }}"class="btn btn-primary">Agregar estado animo despues</a>
+    {% else %}
+    {% endif %}    
+    
         <br>
         <h5>Tu nota es de: {{ promedioFin }} </h5></center> 
         {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5 and sumaPorcentajes < 100 %}
         <script>
-            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: <bold>{{ promedioFin }} </bold> , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
+            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: {{ promedioFin }} , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
+            
         </script>
         {% elif promedioFin > 0 and promedioFin < 3.0 and sumaPorcentajes < 100 %}
         <script>
