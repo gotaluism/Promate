@@ -63,19 +63,25 @@
 
     <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
         <center><br>
-            
-    {% if crear_animo_antes != 0  %}
+    
+    {% for materia in materias %}
+    {% comment %} {{mi_materia_antes.id}}
+    {{materia.id}} {% endcomment %}
+    {% if mi_materia_antes.id == materia.id  and crear_animo_antes != 0  %}
         <center><a href="{{ crear_animo_antes }}"class="btn btn-primary">Agregar estado animo antes</a>
+        
     {% else %}
     {% endif %}
 
     <center><br>
 
-    {% if crear_animo_despues != 0  %}
+    
+    {% if mi_materia_despues.id == materia.id  and crear_animo_despues != 0  %}
     <center><a href="{{ crear_animo_despues }}"class="btn btn-primary">Agregar estado animo despues</a>
     {% else %}
     {% endif %}    
-    
+    {% endfor %}
+
         <br>
         <h5>Tu nota es de: {{ promedioFin }} </h5></center> 
         {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5 and sumaPorcentajes < 100 %}

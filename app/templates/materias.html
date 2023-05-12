@@ -69,7 +69,7 @@
                             <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
                             <p class="card-text">Horario Inicio: {{ materia.horarioI }}
                             <p class="card-text">Horario Finalizacion: {{ materia.horarioF }}
-                            <p>Promedio: {{ promedios }}  </p>
+                            <p>Promedio: {{ materia.promedio }}  </p>
                             <a class="btn btn-primary me-2" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>
                             <a class="btn btn-danger" href="{% url 'eliminarmateria' user.id materia.id %}">Eliminar</a>
 

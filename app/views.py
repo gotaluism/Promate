@@ -119,25 +119,27 @@ def materia(request, user_id):
         else: 
             promedioFin = 0.0
         promedios[materia.id] = promedioFin
+        materia.promedio = promedioFin
         
         labels.append(materia.nombreMateria)
         data.append(promedioFin)
         
     
     mi_materia = Materia.objects.filter(horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
-    if mi_materia:
-        #Correo del usuario
-        email_address = mi_materia.user.email
+    # if mi_materia:
+    #     #Correo del usuario
+    #     email_address = mi_materia.user.email
         
-        yag.send(
-            to=email_address,
-            subject="Alerta de inicio de clases",
-            contents=f'La clase {mi_materia.nombreMateria} está por empezar, entra a Promate e introduce como te sientes!!',
-        )
+    #     yag.send(
+    #         to=email_address,
+    #         subject="Alerta de inicio de clases",
+    #         contents=f'La clase {mi_materia.nombreMateria} está por empezar, entra a Promate e introduce como te sientes!!',
+    #     )
         # return redirect('aggestadoanimoantes', mi_materia.user.id ,mi_materia.id )
         
     return render(request, 'materias.html', {'materias':materias,'promedios': promedios,'labels':labels,'data':data})
 
+#diccionario, 
 @login_required
 def crearmateria(request, user_id):
     user = get_object_or_404(User,pk=user_id)
@@ -187,17 +189,21 @@ def nota(request, user_id, materia_id):
     crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
     crear_animo_antes= 0
     crear_animo_despues= 0 
-    notas=Notas.objects.filter(materia = materia,user = user)   
+    notas=Notas.objects.filter(materia = materia,user = user)
+    materias=Materia.objects.filter(user=user)   
     
+    print(materia.horarioI,)
+
+#---------------------------------------------------------------------___________________________
     mi_materia_antes = Materia.objects.filter(user=user,horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
     mi_materia_despues = Materia.objects.filter(user=user,horarioF__gte=datetime.now()- timedelta(minutes=15) , horarioF__lte=datetime.now()).first()
     
     if mi_materia_antes:
-        crear_animo_antes= reverse('aggestadoanimoantes', args=[user_id, materia_id])
+        crear_animo_antes= reverse('aggestadoanimoantes', args=[user_id, mi_materia_antes.id])
     
     if mi_materia_despues:
-        crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, materia_id])
-        
+        crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, mi_materia_antes.id])
+#---------------------------------------------------------------------______________________---
     
     for notica in notas:
         labels.append(notica.descripcion)
@@ -215,7 +221,7 @@ def nota(request, user_id, materia_id):
         promedioFin=0.0
 
 
-    return render(request, 'notas.html', {'notas':notas , 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
+    return render(request, 'notas.html', {'notas':notas ,'materias':materias, 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
 
 @login_required
 def crearnota(request, user_id, materia_id):
