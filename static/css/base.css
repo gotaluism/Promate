@@ -25,8 +25,8 @@ section{
 #hero{
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(rgba(85, 139, 146, 0.6), rgba(51, 158, 168, 0.6));
-    background-color: #a1bee3;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/bgimage.jpg);
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -46,6 +46,7 @@ section{
     margin: 0 0 10px;
     background: linear-gradient(to right,#567cb1, #5c7eaa, #735ea2, #796b9b, #8e467d);
     -webkit-background-clip: text;
+
     background-clip: text;
     color: transparent;
 
@@ -69,8 +70,8 @@ section{
 }
 
 #hero .btn_get_started:hover{
-    background-color: #009970;
-    border: 2px solid #009970;
+    background: linear-gradient(to right,#567cb1, #5c7eaa, #735ea2, #796b9b, #8e467d);
+    border: 2px solid #8e467d;
 }
 
 

@@ -4,7 +4,8 @@ body {
     box-sizing: border-box;
     background-size: cover;
     font-family: sans-serif;
-    background: linear-gradient(rgba(85, 139, 146, 0.6), rgba(51, 158, 168, 0.6));
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/bgimage.jpg);
+
     background-color: #a1bee3;
     
     
@@ -125,11 +126,17 @@ body {
     font-size: 18px;
     border-radius: 5px;
     font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+    transition: 0.6s all;
+    border: 2px solid #fff;
+    border-radius: 40px;
 }
 
 #submit:hover{
     cursor: pointer;
-    background: #dea0ce;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/bgimage.jpg);
+    border: 0.5px solid #fff;
     color: #000;
 
 }
