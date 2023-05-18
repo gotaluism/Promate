@@ -100,12 +100,21 @@ def logoutaccount(request):
 #___MATERIA___________________________________________________________________
 @login_required
 def materia(request, user_id):
-    
+    user = get_object_or_404(User,pk=user_id)
+    searchTerm = request.GET.get('filtroSemestre')
     labels=[]
     data=[]
+    notaMateriasIncompleto=0
+    creditosVistos=0
+    GPA=0
     
-    user = get_object_or_404(User,pk=user_id)
-    materias=Materia.objects.filter(user = user)       
+    if searchTerm:
+        semestres = searchTerm.split(",") 
+        materias=Materia.objects.filter(user = user,semestre__in=semestres)
+    else:
+        materias=Materia.objects.filter(user = user)
+        searchTerm="-"
+        
     promedios = {}
     for materia in materias:
         notas = Notas.objects.filter(materia=materia, user=user)
@@ -121,9 +130,14 @@ def materia(request, user_id):
         promedios[materia.id] = promedioFin
         materia.promedio = promedioFin
         
+        notaMateriasIncompleto=notaMateriasIncompleto+(promedioFin*materia.cantCreditos)
+        creditosVistos=creditosVistos+materia.cantCreditos
+        
+        
+        
         labels.append(materia.nombreMateria)
         data.append(promedioFin)
-        
+    GPA=round((notaMateriasIncompleto/creditosVistos),2)
     
     mi_materia = Materia.objects.filter(horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
     # if mi_materia:
@@ -137,7 +151,7 @@ def materia(request, user_id):
     #     )
         # return redirect('aggestadoanimoantes', mi_materia.user.id ,mi_materia.id )
         
-    return render(request, 'materias.html', {'materias':materias,'promedios': promedios,'labels':labels,'data':data})
+    return render(request, 'materias.html', {'materias':materias,'promedios': promedios,'labels':labels,'data':data,'searchTerm':searchTerm,'GPA':GPA})
 
 #diccionario, 
 @login_required

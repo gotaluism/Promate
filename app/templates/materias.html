@@ -55,14 +55,37 @@
     });
 </script>
 
+
 {% comment %} ---------------------------------------------------------------------------- {% endcomment %}
+<h3>15 minutos antes de tu clase entra a la materia e ingresa tu estado de ánimo</h3>
+
+                <form action="">
+                    <div class="mb-3">
+                        <label for="semestreInput" class="form-label">Filtrar Materias por semestre</label>
+                        <input type="text" name="filtroSemestre" class="form-control" id="semestreInput" placeholder="Ingrese uno o varios semestres separados por comas" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Ver Semestre
+                    </button>
+                </form>
+
                     <div>
                         <br> <center><a href="{% url 'crearmateria' user.id %}"class="btn btn-primary">Agregar Materia</a></div></center>   
                         {% endif %}
                     
                     <hr>
-                    <h3>15 minutos antes de tu clase entra a la materia e ingresa tu estado de ánimo</h3>
-                    <center><h3>Materias</h3></center>
+                
+
+                    {% if searchTerm == "-" %}
+                    <center><h3>Materias de todos los semestres</h3></center>
+                    <br>
+                    <center><h3>GPA: {{GPA}}</h3></center>
+                    {% else %}
+                    <center><h3>Materias de {{searchTerm}} Semestre</h3></center>
+                    <br>
+                    <center><h3>Promedio Semestre(s):  {{GPA}}</h3></center>
+                    {% endif %}
+
                     <ul class="list-group">
                         {% for materia in materias %}
                         {% if user.is_authenticated and user == materia.user %}
