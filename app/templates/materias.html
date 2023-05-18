@@ -17,11 +17,13 @@
         <title></title>
       </head>
       <body>
+        <center><h1>Grafico de promedio de cada materia</h1></center>
 {% comment %} ----------------------------------------------------------------------------- {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div>
     <canvas id="graficaMaterias"></canvas>
 </div>
+
 <script>
     const ctx = document.getElementById('graficaMaterias');
     
@@ -52,12 +54,14 @@
         }
     });
 </script>
+
 {% comment %} ---------------------------------------------------------------------------- {% endcomment %}
                     <div>
                         <br> <center><a href="{% url 'crearmateria' user.id %}"class="btn btn-primary">Agregar Materia</a></div></center>   
                         {% endif %}
                     
                     <hr>
+                    <h3>15 minutos antes de tu clase entra a la materia e ingresa tu estado de ánimo</h3>
                     <center><h3>Materias</h3></center>
                     <ul class="list-group">
                         {% for materia in materias %}

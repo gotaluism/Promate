@@ -44,7 +44,7 @@ section{
     font-weight: 700;
     line-height: 56px;
     margin: 0 0 10px;
-    background: linear-gradient(to right,#567cb1, #5c7eaa, #735ea2, #796b9b, #8e467d);
+    background-color: #d2b6e9;
     -webkit-background-clip: text;
 
     background-clip: text;
@@ -125,3 +125,6 @@ section{
     margin-right: 4px;
 }
 
+#notas1help {
+    color: #000;
+}
