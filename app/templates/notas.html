@@ -23,6 +23,7 @@
 
 {% comment %} ----------------------------------------------------------------------------- {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<center><h1>Grafico de notas de la materia</h1></center>
 <div style="width: 280x; height:350px; display: flex; justify-content: center; align-items: center;">
     <canvas id="graficaNotas"></canvas>
 </div>
@@ -44,7 +45,7 @@
             plugins: {
             title: {
                 display: true,
-                text: 'Grafica Materia'
+                text: ''
             }
         },
             scales: {
@@ -60,30 +61,33 @@
 </script>
 {% comment %} ---------------------------------------------------------------------------- {% endcomment %}
 
-
-    <center><a href="{{ crear_nota_url }}"class="btn btn-primary">Agregar Nota</a>
+    <br>
+    <br>
+    <br>
+    <center><a href="{{ crear_nota_url }}"id="btnagregar" class="btn_botones">Agregar Nota</a>
         <center><br>
     
     {% for materia in materias %}
     {% comment %} {{mi_materia_antes.id}}
     {{materia.id}} {% endcomment %}
     {% if mi_materia_antes.id == materia.id  and crear_animo_antes != 0  %}
-        <center><a href="{{ crear_animo_antes }}"class="btn btn-primary">Agregar estado animo antes</a>
+        <center><a href="{{ crear_animo_antes }}"id="btnagregar" class="btn_botones">Agregar estado animo antes</a>
         
     {% else %}
     {% endif %}
 
-    <center><br>
+    <center>
 
     
     {% if mi_materia_despues.id == materia.id  and crear_animo_despues != 0  %}
-    <center><a href="{{ crear_animo_despues }}"class="btn btn-primary">Agregar estado animo despues</a>
+    <center><a href="{{ crear_animo_despues }}"id="btnagregar" class="btn_botones">Agregar estado animo despues</a>
     {% else %}
     {% endif %}    
     {% endfor %}
 
         <br>
-        <h5>Tu nota es de: {{ promedioFin }} </h5></center> 
+        <h3>Tu nota es de: {{ promedioFin }} </h3></center> 
+        <br>
         {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5 and sumaPorcentajes < 100 %}
         <script>
             Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: {{ promedioFin }} , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
@@ -104,27 +108,31 @@
         {% endif %}
     
 </div>
-<ul class="list-group">
-    
+
+<div class="row row-cols-1 row-cols-md-3 g-4"> 
     {% for nota in notas %}
     {% if user.is_authenticated and user == nota.user %}
     
-    <li class="list-group-item pb-3 pt-3">
-        <p class="card-text">Nota: {{ nota.nota }}</p>
-        <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>
-        <p class="card-text">Descripcion: {{ nota.descripcion}}</p>
-        <a class="btn btn-primary me-2" href="{% url 'actualizarnota' nota.id %}">Actualizar</a>
-        <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a>
+    <div v-for="materia in materias" class="col">
+        <div class="card"> 
+            <div class="card-body"> 
+            <p class="card-text">Nota: {{ nota.nota }}</p>
+            <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>
+            <p class="card-text">Descripcion: {{ nota.descripcion}}</p>
+            <a id="btnactualizar" class="btn_botones"  href="{% url 'actualizarnota' nota.id %}">Actualizar</a>
+            <a id="btneliminar" class="btn_botones"href="{% url 'eliminarnota' nota.id %}">Eliminar</a>
         {% comment %} <a class="btn btn-primary me-2" href="{% url 'actualizarnota' user.id materia.id nota.id %}">Actualizar</a>
         <a class="btn btn-danger" href="{% url 'eliminarnota' nota.id %}">Eliminar</a>  {% endcomment %}
-
-    </li>
+        </div>
+    </div>
+    </div>
+    
     
     {% else %}
     <h1>Acceso denegado</h1>
         {% endif %}
         {% endfor %}
-    </ul>
+    </div>
     {% endif %}
 
 {% endblock content %}
