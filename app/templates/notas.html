@@ -70,6 +70,7 @@
     {% for materia in materias %}
     {% comment %} {{mi_materia_antes.id}}
     {{materia.id}} {% endcomment %}
+    <br>
     {% if mi_materia_antes.id == materia.id  and crear_animo_antes != 0  %}
         <center><a href="{{ crear_animo_antes }}"id="btnagregar" class="btn_botones">Agregar estado animo antes</a>
         

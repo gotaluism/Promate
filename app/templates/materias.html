@@ -92,13 +92,14 @@
                         <div v-for="materia in materias" class="col">
                             <div class="card"> 
                             {% comment %} <h5 class="card-title"> <a href="{% url '' %}"> {{ materia.nombreMateria }} </a> </h5> {% endcomment %}
-                                <h5 class="card-title"><a href="{% url 'nota' user.id materia.id  %}">{{ materia.nombreMateria }}</a></h5>
+                                
+                                <center><h4 class="card-title"><a href="{% url 'nota' user.id materia.id  %}">{{ materia.nombreMateria }}</a></h4></center>
                                 <div class="card-body"> 
                                     <p class="card-text">Profesor: {{ materia.nombreProfesor }}</p>
                                     <p class="card-text">Semestre: {{ materia.semestre }} || Creditos: {{materia.cantCreditos}}</p>
                                     <p class="card-text">Horario Inicio: {{ materia.horarioI }}
                                     <p class="card-text">Horario Finalizacion: {{ materia.horarioF }}
-                                    <p>Promedio: {{ materia.promedio }}  </p>
+                                    <p><b>Promedio: {{ materia.promedio }}  </p></b>
                                     <a id="btnactualizar" class="btn_botones" href="{% url 'actualizarmateria' user.id materia.id %}">Actualizar</a>
                                     <a id="btneliminar" class="btn_botones" href="{% url 'eliminarmateria' user.id materia.id %}">Eliminar</a>
                                 </div>

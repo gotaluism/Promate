@@ -23,8 +23,7 @@ import yagmail
 
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
-smtp_username = 'proyectopromate@gmail.com' # tu dirección de correo electrónico
-smtp_password = 'PROMATE12345' # tu contraseña de correo electrónico
+
 yag =  yagmail.SMTP("promatepi2@gmail.com", "rjqrxpnhpgavlgvk")
 # Create your views here.
 
@@ -216,7 +215,7 @@ def nota(request, user_id, materia_id):
         crear_animo_antes= reverse('aggestadoanimoantes', args=[user_id, mi_materia_antes.id])
     
     if mi_materia_despues:
-        crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, mi_materia_antes.id])
+        crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, mi_materia_despues.id])
 #---------------------------------------------------------------------______________________---
     
     for notica in notas:
