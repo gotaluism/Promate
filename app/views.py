@@ -132,11 +132,14 @@ def materia(request, user_id):
         notaMateriasIncompleto=notaMateriasIncompleto+(promedioFin*materia.cantCreditos)
         creditosVistos=creditosVistos+materia.cantCreditos
         
-        
+        if(notaMateriasIncompleto == 0 and creditosVistos ):
+            GPA=0
+        else: 
+            GPA=round((notaMateriasIncompleto/creditosVistos),2)
         
         labels.append(materia.nombreMateria)
         data.append(promedioFin)
-    GPA=round((notaMateriasIncompleto/creditosVistos),2)
+    
     
     mi_materia = Materia.objects.filter(horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
     # if mi_materia:
@@ -197,6 +200,11 @@ def nota(request, user_id, materia_id):
     labels=[]
     data=[]
     
+    labels1=["FELIZ","TRISTE","ESTRESADO","ABURRIDO"]
+
+    
+    
+    
     user = get_object_or_404(User,pk=user_id)                         ###
     materia = get_object_or_404(Materia,pk=materia_id)    ###
     crear_nota_url = reverse('crearnota', args=[user_id, materia_id])
@@ -204,8 +212,8 @@ def nota(request, user_id, materia_id):
     crear_animo_despues= 0 
     notas=Notas.objects.filter(materia = materia,user = user)
     materias=Materia.objects.filter(user=user)   
-    
-    print(materia.horarioI,)
+    mood=EstadoAnimoAntes.objects.filter(materia = materia,user = user)
+    print(materia.horarioI)
 
 #---------------------------------------------------------------------___________________________
     mi_materia_antes = Materia.objects.filter(user=user,horarioI__gte=datetime.now(), horarioI__lte=datetime.now() + timedelta(minutes=15)).first()
@@ -217,10 +225,26 @@ def nota(request, user_id, materia_id):
     if mi_materia_despues:
         crear_animo_despues= reverse('aggestadoanimodespues', args=[user_id, mi_materia_despues.id])
 #---------------------------------------------------------------------______________________---
+    feliz=0
+    triste=0
+    aburrido=0
+    estresado=0
     
     for notica in notas:
         labels.append(notica.descripcion)
         data.append(notica.nota)
+        
+    for moodsito in mood:
+        if moodsito.estadoAnimoAntes==1:
+            feliz=feliz+1
+        elif moodsito.estadoAnimoAntes==2:
+            triste=triste+1
+        elif moodsito.estadoAnimoAntes==3:
+            estresado=estresado+1
+        else:
+            aburrido=aburrido+1
+            
+    data1=[feliz,triste,estresado,aburrido]  
         
     promedio=0
     suma_porcentajes=0
@@ -232,9 +256,12 @@ def nota(request, user_id, materia_id):
         promedioFin=round((promedio/suma_porcentajes),2)
     else:
         promedioFin=0.0
+    promediomood=0
+    for moods in mood:
+        promediomood=int((promediomood+moods.estadoAnimoAntes)/2)
+        
 
-
-    return render(request, 'notas.html', {'notas':notas ,'materias':materias, 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data })             ###
+    return render(request, 'notas.html', {'notas':notas ,'materias':materias, 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data,'labels1':labels1,'data1':data1,'promediomood':promediomood })             ###
 
 @login_required
 def crearnota(request, user_id, materia_id):
@@ -278,8 +305,10 @@ def eliminarnota(request, nota_id):
 def aggestadoanimoantes(request, user_id, materia_id):
     user = get_object_or_404(User,pk=user_id)
     materia = get_object_or_404(Materia,pk=materia_id)  
+    mood=EstadoAnimoAntes.objects.filter(materia = materia,user = user)
+    promediomood=1
     if request.method == 'GET':
-        return render(request, 'createAnimoAntes.html',{'form':AnimoAntesForm(), 'materia':materia})
+        return render(request, 'createAnimoAntes.html',{'form':AnimoAntesForm(), 'materia':materia,'promediomood':promediomood})
     else:
         try:
             form = AnimoAntesForm(request.POST)
