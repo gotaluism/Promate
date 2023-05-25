@@ -4,6 +4,24 @@
 <div class="card mb-3">
     <div class="row g-0">
         <div>
+            {% if  promediomood == 1  %}
+            <script>
+                Swal.fire({title: 'Ciudado!',text: 'Hey te has sentido muy feliz ultimamente en la materia , sigue así ',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
+                
+            </script>
+            {% elif promediomood == 2 %}
+            <script>
+                Swal.fire({title: 'Alerta!!',text: 'Uy andas sad en la matería , algo pasa? Deberías hablar con un amigo o ver videos de gatitos',icon: 'error',confirmButtonText: 'Gracias! 😣'})
+            </script>
+            {% elif promediomood == 3  %}
+            <script>
+                Swal.fire({title: 'Alerta!!',text: 'Hemos detectado que andas estresado en la materia , unas vueltas a la pista de la uni y veras como se te aclaran las ideas  ',icon: 'error',confirmButtonText: 'Gracias! 💩'})
+            </script>
+            {% elif promediomood == 4 %}
+            <script>
+                Swal.fire({title: 'Error',text: 'Aburrido en la materia, como dijo tadashi hamada "Busca otro angulo y transforma el conocimiento en cosas estupidas , al fin y al cabo se reiran de ti si fracazas"',icon: 'question',confirmButtonText:'Gracias!'})
+            </script>       
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">Agregar estado de animo antes para {{materia.nombreMateria }}</h5>
                     {% if error %}
@@ -11,24 +29,6 @@
                     role="alert">
                     {{ error }}
                     <br>
-                    {% if  promediomood == 1  %}
-                    <script>
-                        Swal.fire({title: 'Ciudado!',text: 'Hey te has sentido muy feliz ultimamente en la materia , sigue así ',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
-                        
-                    </script>
-                    {% elif promediomood == 2 %}
-                    <script>
-                        Swal.fire({title: 'Alerta!!',text: 'Uy andas sad en la matería , algo pasa? Deberías hablar con un amigo o ver videos de gatitos',icon: 'error',confirmButtonText: 'Gracias! 😣'})
-                    </script>
-                    {% elif promediomood == 3  %}
-                    <script>
-                        Swal.fire({title: 'Alerta!!',text: 'Hemos detectado que andas estresado en la materia , unas vueltas a la pista de la uni y veras como se te aclaran las ideas  ',icon: 'error',confirmButtonText: 'Gracias! 💩'})
-                    </script>
-                    {% elif promediomood == 4 %}
-                    <script>
-                        Swal.fire({title: 'Error',text: 'Aburrido en la materia, como dijo tadashi hamada "Busca otro angulo y transforma el conocimiento en cosas estupidas , al fin y al cabo se reiran de ti si fracazas"',icon: 'question',confirmButtonText:'Gracias!'})
-                    </script>       
-                    {% endif %}
                 </div>
                 {% endif %}
                 <p class="card-text">

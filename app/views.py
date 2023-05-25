@@ -213,6 +213,7 @@ def nota(request, user_id, materia_id):
     notas=Notas.objects.filter(materia = materia,user = user)
     materias=Materia.objects.filter(user=user)   
     mood=EstadoAnimoAntes.objects.filter(materia = materia,user = user)
+    mooder=EstadoAnimoDespues.objects.filter(materia = materia,user = user)
     print(materia.horarioI)
 
 #---------------------------------------------------------------------___________________________
@@ -230,6 +231,11 @@ def nota(request, user_id, materia_id):
     aburrido=0
     estresado=0
     
+    feliz1=0
+    triste1=0
+    aburrido1=0
+    estresado1=0
+    
     for notica in notas:
         labels.append(notica.descripcion)
         data.append(notica.nota)
@@ -244,8 +250,19 @@ def nota(request, user_id, materia_id):
         else:
             aburrido=aburrido+1
             
+            
+    for moodsit in mooder:
+        if moodsit.estadoAnimoDespues==1:
+            feliz1=feliz1+1
+        elif moodsit.estadoAnimoDespues==2:
+            triste1=triste1+1
+        elif moodsit.estadoAnimoDespues==3:
+            estresado1=estresado1+1
+        else:
+            aburrido1=aburrido1+1
+            
     data1=[feliz,triste,estresado,aburrido]  
-        
+    data2=[feliz1,triste1,estresado1,aburrido1]  
     promedio=0
     suma_porcentajes=0
     for nota in notas:
@@ -261,7 +278,7 @@ def nota(request, user_id, materia_id):
         promediomood=int((promediomood+moods.estadoAnimoAntes)/2)
         
 
-    return render(request, 'notas.html', {'notas':notas ,'materias':materias, 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data,'labels1':labels1,'data1':data1,'promediomood':promediomood })             ###
+    return render(request, 'notas.html', {'notas':notas ,'materias':materias, 'crear_nota_url':crear_nota_url, 'mi_materia_antes':mi_materia_antes,'mi_materia_despues':mi_materia_despues,'crear_animo_antes':crear_animo_antes,'crear_animo_despues':crear_animo_despues,'promedioFin':promedioFin,'sumaPorcentajes':suma_porcentajes,'labels':labels,'data':data,'labels1':labels1,'data1':data1,'promediomood':promediomood,'data2':data2, })             ###
 
 @login_required
 def crearnota(request, user_id, materia_id):
@@ -306,7 +323,9 @@ def aggestadoanimoantes(request, user_id, materia_id):
     user = get_object_or_404(User,pk=user_id)
     materia = get_object_or_404(Materia,pk=materia_id)  
     mood=EstadoAnimoAntes.objects.filter(materia = materia,user = user)
-    promediomood=1
+    promediomood=0
+    for moods in mood:
+        promediomood=int((promediomood+moods.estadoAnimoAntes)/2)
     if request.method == 'GET':
         return render(request, 'createAnimoAntes.html',{'form':AnimoAntesForm(), 'materia':materia,'promediomood':promediomood})
     else:
