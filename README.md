@@ -1,6 +1,11 @@
 # Promate
 ![promate](https://github.com/gotaluism/Promate/assets/76192117/514c4c1f-ea1e-4a9e-9336-cfe6c7ca20f3)
-<br>Promate es una aplicación web  para estudiantes de universidad que tienen problema gestionando los progresos académicos de sus carreras. Se llama PROMATE y es una aplicación web que permitirá poder conocer los promedios académicos, progresos y dar recomendaciones de materias según la necesidad y comportamientos del estudiante. A diferencia de aplicaciones académicas propias de cada universidad, nuestra aplicación permite ahorrar tiempo evitando que el estudiante tenga que usar diferentes apps y además ofrece recomendaciones de materias especificas según las notas del estudiante y el horario.
+<br>"¿Sabías que según una encuesta que le realizamos a los estudiantes de la universidad EAFIT, dio como resultado que al menos el 76% de los estudiantes considera que estar pendiente de sus notas es clave para su éxito académico? Pero no decidimos quedarnos solo con esta información, por lo que buscamos y encontramos que de acuerdo a una investigación de BMC Medical Education, los estudiantes que tienen mejor rendimiento academico son aquellos que tienen buena eficiencia academica, tienen bajos niveles de ansiedad y estrés y además tienen confianza en sus notas durante todo el proceso.
+Estas investigaciones demuestran la importancia que los estudiantes le dan a su rendimiento académico. Sin embargo, muchos de ellos no tienen los conocimientos necesarios para mejorar sus notas. Por eso, hemos creado Promate.
+
+Promate es una aplicación fácil de usar que ofrece una solución a la incertidumbre en el manejo de las notas. Con su interfaz intuitiva y gráficos detallados sobre el estado académico, Promate garantiza una experiencia cómoda para el usuario. Además, a través de preguntas esenciales, la aplicación brinda recomendaciones personalizadas para mejorar el rendimiento académico. Estas recomendaciones incluyen estrategias efectivas para aumentar el rendimiento en las materias y mejorar las notas.
+
+Con Promate, puedes tener un control completo sobre tus notas y mejorar tu rendimiento académico de manera efectiva. ¡Únete a nosotros hoy mismo y descubre cómo Promate puede transformar tu futuro académico! "
 
 ## Librarias instaladas antes de correr el programa
 * pip install django<br>
@@ -13,6 +18,9 @@ python manage.py runserver<br>
 PD: Previamente debes estar ubicado en la carpeta de promate
 
 ### Promate fue un proyecto realizado en la materia de proyecto integrador 1 de la Universidad EAFIT en el semestre 2023-1
+
+## Demo promate
+https://youtu.be/QfFuy1NWVsk
 
 Foto 1
 ![foto1Promate](https://github.com/gotaluism/Promate/assets/76192117/a565a2e2-2cbd-4f91-a9d5-9eb3436964aa)
