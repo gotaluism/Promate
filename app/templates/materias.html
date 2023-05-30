@@ -17,7 +17,7 @@
         <title></title>
       </head>
       <body>
-        <center><h1>Grafico de promedio de cada materia</h1></center>
+        <center><h1>Gráfico de promedio de cada materia</h1></center>
 {% comment %} ----------------------------------------------------------------------------- {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div  style="width: 280x; height:350px; display: flex; justify-content: center; align-items: center;">
@@ -41,7 +41,7 @@
         options: {
             title: {
                 display: true,
-                text: 'Grafica general'
+                text: 'Gráfica general'
             },
             scales: {
                 y: {
@@ -62,7 +62,7 @@
                 <form action="">
                     <div class="mb-3">
                         <label for="semestreInput" class="form-label">Filtrar Materias por semestre</label>
-                        <input type="text" name="filtroSemestre" class="form-control" id="semestreInput" placeholder="Ingrese uno o varios semestres separados por comas" />
+                        <input type="text" name="filtroSemestre" class="form-control" id="semestreInput" placeholder="Ingrese uno o varios semestres, separados por comas" />
                     </div>
                     <button type="submit" class="btn btn-primary">
                         Ver Semestre

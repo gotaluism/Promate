@@ -29,7 +29,7 @@
     {{materia.id}} {% endcomment %}
     <br>
     {% if mi_materia_antes.id == materia.id  and crear_animo_antes != 0  %}
-        <center><a href="{{ crear_animo_antes }}"id="btnagregar" class="btn_botones">Agregar estado animo antes</a>
+        <center><a href="{{ crear_animo_antes }}"id="btnagregar" class="btn_botones">Agregar estado ánimo antes</a>
     {% else %}
     {% endif %}
 
@@ -37,7 +37,7 @@
 
     
     {% if mi_materia_despues.id == materia.id  and crear_animo_despues != 0  %}
-    <center><a href="{{ crear_animo_despues }}"id="btnagregar" class="btn_botones">Agregar estado animo despues</a>
+    <center><a href="{{ crear_animo_despues }}"id="btnagregar" class="btn_botones">Agregar estado ánimo después</a>
     {% else %}
     {% endif %}    
     {% endfor %}
@@ -51,7 +51,7 @@
                 <div class="card-body"> 
                     <p class="card-text">Nota: {{ nota.nota }}</p>
                     <p class="card-text">Porcentaje: {{ nota.porcentaje }}% </p>
-                    <p class="card-text">Descripcion: {{ nota.descripcion}}</p>
+                    <p class="card-text">Descripción: {{ nota.descripcion}}</p>
                     <a id="btnactualizar" class="btn_botones"  href="{% url 'actualizarnota' nota.id %}">Actualizar</a>
                     <a id="btneliminar" class="btn_botones"href="{% url 'eliminarnota' nota.id %}">Eliminar</a>
                     {% comment %} <a class="btn btn-primary me-2" href="{% url 'actualizarnota' user.id materia.id nota.id %}">Actualizar</a>
@@ -71,7 +71,7 @@
 
 {% comment %} ----------------------------------------------------------------------------- {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<center><h1>Grafico de notas de la materia</h1></center>
+<center><h1>Gráfico de notas de la materia</h1></center>
 <div style="width: 280x; height:350px; display: flex; justify-content: center; align-items: center;">
     <canvas id="graficaNotas"></canvas>
 </div>
@@ -109,12 +109,12 @@
 </script>
 
 <div class="containter" style="display: flex; width: 100%; height:300px;">
-    <center><h1>Mood antes</h1></center><br>
+    <center><h1>Ánimo antes</h1></center><br>
     <div class="moodAntes" style="width: 50%; height: 100%; justify-content: center; align-items: center;">
         <canvas id="graficaMoodAntes"></canvas>
     </div>
     
-    <center><h1>Mood despues</h1></center><br>
+    <center><h1>Ánimo después</h1></center><br>
     <div class="moodDespues" style="width: 50%; height: 100%; justify-content: center; align-items: center;">
         <canvas id="graficaMoodDespues"></canvas>
     </div>
@@ -184,20 +184,20 @@
 
         {% if  promedioFin >= 3.0 and  promedioFin  <= 3.5 and sumaPorcentajes < 100 %}
         <script>
-            Swal.fire({title: 'Ciudado!',text: 'Llevas la materia en ciudados intensivos con: {{ promedioFin }} , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: 'Gracias! 👀'})
+            Swal.fire({title: 'Cuidado!',text: 'Llevas la materia en cuidados intensivos con: {{ promedioFin }} , animate , llevas el {{ sumaPorcentajes }}% del curso',icon: 'warning',confirmButtonText: '¡Gracias! 👀'})
             
         </script>
         {% elif promedioFin > 0 and promedioFin < 3.0 and sumaPorcentajes < 100 %}
         <script>
-            Swal.fire({title: 'Alerta!!',text: 'Llevas la materia perdiendo con:  {{ promedioFin }} , aún puedes remontar 🫵, llevas el {{ sumaPorcentajes }}% del curso',icon: 'error',confirmButtonText: 'Gracias! 😣'})
+            Swal.fire({title: '¡¡Alerta!!',text: 'Llevas perdiendo la materia con:  {{ promedioFin }} , aún puedes remontar 🫵, llevas el {{ sumaPorcentajes }}% del curso',icon: 'error',confirmButtonText: '¡Gracias! 😣'})
         </script>
         {% elif promedioFin > 0 and promedioFin < 3.0 and sumaPorcentajes == 100 %}
         <script>
-            Swal.fire({title: 'Alerta!!',text: 'Nos vemos el otro semestre 😭, sacaste:  {{ promedioFin }} en el 100% del curso ',icon: 'error',confirmButtonText: 'Gracias! 💩'})
+            Swal.fire({title: '¡¡Alerta!!',text: 'Nos vemos el otro semestre 😭, sacaste:  {{ promedioFin }} en el 100% del curso ',icon: 'error',confirmButtonText: '¡Gracias! 💩'})
         </script>
         {% elif sumaPorcentajes > 100 %}
         <script>
-            Swal.fire({title: 'Error',text: 'Te fallaron las matematicas 🙈, esta materia tiene {{ sumaPorcentajes }}% ; más de 100%',icon: 'question',confirmButtonText:'Gracias!'})
+            Swal.fire({title: 'Error',text: 'Te fallaron las matematicas 🙈, esta materia tiene {{ sumaPorcentajes }}% ; más de 100%',icon: 'question',confirmButtonText:'¡Gracias!'})
         </script>       
         {% endif %}
         

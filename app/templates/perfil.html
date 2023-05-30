@@ -20,10 +20,10 @@
     Carrera: {{ carrera.nombreCarrera }} 
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">
-    Numero de semestres: {{ carrera.numSemestresTotales }}</h6>
-    <p class="card-text"> Numero de creditos {{ carrera.numTotalCreditos}}</p>
+    Número de semestres: {{ carrera.numSemestresTotales }}</h6>
+    <p class="card-text"> Número de créditos {{ carrera.numTotalCreditos}}</p>
 
-    <a id="btneliminar" class="btn_botones"  href="{% url 'delperfil' user.id carrera.id %}">Delete</a>
+    <a id="btneliminar" class="btn_botones"  href="{% url 'delperfil' user.id carrera.id %}">Eliminar</a>
     {% endif %}
     </li>
     <br>

@@ -39,7 +39,7 @@ class MateriaForm(ModelForm):
             'nombreProfesor': 'Nombre del profesor',
             'cantCreditos': 'Cantidad de créditos',
             'horarioI': 'Horario Inicio',
-            'horarioF': 'Horario Finalizacion',
+            'horarioF': 'Horario Finalización',
         }
         widgets = {
             'nombreMateria': forms.TextInput(attrs={'class': 'form-control'}),
@@ -87,7 +87,7 @@ class NotaForm(ModelForm):
         labels = {
             'nota': 'Nota',
             'porcentaje': 'Porcentaje',
-            'descripcion': 'Descripcion'
+            'descripcion': 'Descripción'
         }
         widgets = {
             'nota': forms.NumberInput(attrs={'class': 'form-control'}),
