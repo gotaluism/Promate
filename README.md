@@ -1,4 +1,5 @@
 # Promate
+[![](https://visitcount.itsvg.in/api?id=gotaluism&label=Visits&icon=4&pretty=false)](https://visitcount.itsvg.in)
 ![promate](https://github.com/gotaluism/Promate/assets/76192117/514c4c1f-ea1e-4a9e-9336-cfe6c7ca20f3)
 <br>"¿Sabías que según una encuesta que le realizamos a los estudiantes de la universidad EAFIT, dio como resultado que al menos el 76% de los estudiantes considera que estar pendiente de sus notas es clave para su éxito académico? Pero no decidimos quedarnos solo con esta información, por lo que buscamos y encontramos que de acuerdo a una investigación de BMC Medical Education, los estudiantes que tienen mejor rendimiento academico son aquellos que tienen buena eficiencia academica, tienen bajos niveles de ansiedad y estrés y además tienen confianza en sus notas durante todo el proceso.
 Estas investigaciones demuestran la importancia que los estudiantes le dan a su rendimiento académico. Sin embargo, muchos de ellos no tienen los conocimientos necesarios para mejorar sus notas. Por eso, hemos creado Promate.
