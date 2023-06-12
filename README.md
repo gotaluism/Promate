@@ -9,6 +9,10 @@ Promate es una aplicación fácil de usar que ofrece una solución a la incertid
 
 Con Promate, puedes tener un control completo sobre tus notas y mejorar tu rendimiento académico de manera efectiva. ¡Únete a nosotros hoy mismo y descubre cómo Promate puede transformar tu futuro académico! "
 
+## Tecnologias usadas
+* Django
+* Bootsrap
+
 ## Librarias instaladas antes de correr el programa
 * pip install django<br>
 * pip install django-cron <br>
